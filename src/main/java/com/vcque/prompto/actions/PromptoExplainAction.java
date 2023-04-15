@@ -37,6 +37,10 @@ public class PromptoExplainAction extends PsiElementBaseIntentionAction implemen
 
     @Override
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
+        if (!ActionHelper.isOpenAIAvailable()) {
+            return;
+        }
+
         var text = editor.getDocument().getText();
         var method = getMethod(element);
 

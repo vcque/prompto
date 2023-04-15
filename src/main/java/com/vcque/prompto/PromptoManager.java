@@ -93,14 +93,6 @@ public class PromptoManager {
         return result.getChoices().get(0).getMessage().getContent();
     }
 
-    private static String extractCodeSnippet(ChatCompletionResult result) {
-
-        var content = result.getChoices().get(0).getMessage().getContent();
-        var editorContents = Utils.extractEditorContent(content);
-        return editorContents.isEmpty() ? content.trim() : editorContents.get(0).trim();
-    }
-
-
     public String buildPrompt(String text, String userInput) {
         return Stream.of(
                 Prompts.seniorDeveloperPrompt(),
@@ -118,6 +110,17 @@ public class PromptoManager {
                 ))
                 .map(ChatMessage::getContent)
                 .collect(Collectors.joining("\n"));
+    }
 
+    public boolean hasToken() {
+        var token = PromptoSettingsState.getInstance().apiToken;
+        return token != null && !token.trim().isEmpty();
+    }
+
+    private static String extractCodeSnippet(ChatCompletionResult result) {
+
+        var content = result.getChoices().get(0).getMessage().getContent();
+        var editorContents = Utils.extractEditorContent(content);
+        return editorContents.isEmpty() ? content.trim() : editorContents.get(0).trim();
     }
 }
