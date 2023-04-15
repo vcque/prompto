@@ -31,11 +31,11 @@
                                  displayName="Prompto Settings"/>
         <applicationService serviceImplementation="com.vcque.prompto.settings.PromptoSettingsState"/>
         <intentionAction>
-            <className>com.vcque.prompto.PromptoEnhanceAction</className>
+            <className>com.vcque.prompto.actions.PromptoEnhanceAction</className>
             <category>Java</category>
         </intentionAction>
         <intentionAction>
-            <className>com.vcque.prompto.PromptoExplainAction</className>
+            <className>com.vcque.prompto.actions.PromptoExplainAction</className>
             <category>Java</category>
         </intentionAction>
     </extensions>

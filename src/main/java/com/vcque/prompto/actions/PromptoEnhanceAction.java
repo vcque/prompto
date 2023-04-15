@@ -1,4 +1,4 @@
-package com.vcque.prompto;
+package com.vcque.prompto.actions;
 
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
@@ -14,6 +14,7 @@ import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
+import com.vcque.prompto.PromptoManager;
 import org.jetbrains.annotations.NotNull;
 
 public class PromptoEnhanceAction extends PsiElementBaseIntentionAction implements IntentionAction {

@@ -6,7 +6,10 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
-    final static Pattern EDITOR_PATTERN = Pattern.compile("(?s)```(?:java\n)?(.*?)```");
+    private Utils() {
+    }
+
+    static final Pattern EDITOR_PATTERN = Pattern.compile("(?s)```(?:java\n)?(.*?)```");
 
     public static List<String> extractEditorContent(String text) {
 
