@@ -2,6 +2,10 @@
 
 Prompto is an IntelliJ plugin that leverages the power of the OpenAI ChatGPT API to generate and enhance Java code in your project. It provides two main features: code explanation and code enhancement. You can ask questions about the current Java file or modify a method based on a prompt.
 
+## Warning
+
+Please be aware that when using this plugin, your code will be sent to OpenAI's API for processing. Be cautious when working with sensitive or private code, as it will be transmitted over the internet and might even be used in training data.
+
 ## Features
 
 - **prompto explain**: Ask questions about the current Java file, and get answers powered by the ChatGPT API.
