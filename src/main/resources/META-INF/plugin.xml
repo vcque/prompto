@@ -30,12 +30,19 @@
                                  id="com.vcque.prompto.settings.PromptoSettingsConfigurable"
                                  displayName="Prompto Settings"/>
         <applicationService serviceImplementation="com.vcque.prompto.settings.PromptoSettingsState"/>
+        <notificationGroup id="Prompto"
+                           displayType="BALLOON"
+        />
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoEnhanceAction</className>
             <category>Java</category>
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoExplainAction</className>
+            <category>Java</category>
+        </intentionAction>
+        <intentionAction>
+            <className>com.vcque.prompto.actions.PromptoClipboardAction</className>
             <category>Java</category>
         </intentionAction>
     </extensions>

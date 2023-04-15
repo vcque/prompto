@@ -9,6 +9,8 @@ import com.theokanning.openai.service.OpenAiService;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PromptoManager {
 
@@ -99,4 +101,23 @@ public class PromptoManager {
     }
 
 
+    public String buildPrompt(String text, String userInput) {
+        return Stream.of(
+                Prompts.seniorDeveloperPrompt(),
+                Prompts.fileContextPrompt(text),
+                new ChatMessage(
+                        ChatMessageRole.SYSTEM.value(),
+                        """
+                                I will instruct you a task about the provided file.
+                                Do answer truthfully. If you don't know how to do the task, say so and provide the reasons why.
+                                """
+                ),
+                new ChatMessage(
+                        ChatMessageRole.USER.value(),
+                        userInput
+                ))
+                .map(ChatMessage::getContent)
+                .collect(Collectors.joining("\n"));
+
+    }
 }
