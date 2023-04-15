@@ -1,1 +1,1 @@
-rootProject.name = "eoGPT"
+rootProject.name = "prompto"

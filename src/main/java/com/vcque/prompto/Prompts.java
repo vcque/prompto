@@ -1,4 +1,4 @@
-package com.eogile.eogpt;
+package com.vcque.prompto;
 
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;

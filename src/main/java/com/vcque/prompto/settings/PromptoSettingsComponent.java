@@ -1,4 +1,4 @@
-package com.eogile.eogpt.settings;
+package com.vcque.prompto.settings;
 
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBTextField;
@@ -7,12 +7,12 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class EoGPTSettingsComponent {
+public class PromptoSettingsComponent {
 
   private final JPanel mainPanel;
   private final JBTextField apiToken = new JBTextField();
 
-  public EoGPTSettingsComponent() {
+  public PromptoSettingsComponent() {
     mainPanel = FormBuilder.createFormBuilder()
             .addLabeledComponent(new JBLabel("Enter openAI token: "), apiToken, 1, false)
             .addComponentFillVertically(new JPanel(), 0)

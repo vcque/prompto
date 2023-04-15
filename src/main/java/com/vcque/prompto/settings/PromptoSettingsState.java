@@ -1,4 +1,4 @@
-package com.eogile.eogpt.settings;
+package com.vcque.prompto.settings;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
@@ -8,23 +8,23 @@ import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 
-@State(name = "EoGPTSettings", storages = {@Storage("EoGPTSettings.xml")})
+@State(name = "PromptoSettings", storages = {@Storage("PromptoSettings.xml")})
 @Service
-public final class EoGPTSettingsState implements PersistentStateComponent<EoGPTSettingsState> {
+public final class PromptoSettingsState implements PersistentStateComponent<PromptoSettingsState> {
 
     public String apiToken = "";
 
-    public static EoGPTSettingsState getInstance() {
-        return ApplicationManager.getApplication().getService(EoGPTSettingsState.class);
+    public static PromptoSettingsState getInstance() {
+        return ApplicationManager.getApplication().getService(PromptoSettingsState.class);
     }
 
     @Override
-    public EoGPTSettingsState getState() {
+    public PromptoSettingsState getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull EoGPTSettingsState state) {
+    public void loadState(@NotNull PromptoSettingsState state) {
         XmlSerializerUtil.copyBean(state, this);
     }
 }

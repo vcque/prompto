@@ -1,14 +1,14 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.eogile.eoGPT</id>
+    <id>com.vcque.prompto</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>EoGPT</name>
+    <name>Prompto</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="vocquet@eogile.com" url="https://eogile.com">Eogile</vendor>
+    <vendor email="vocquet.ocquet@gmail.com" url="https://github.com/vcque">Vincent Ocquet</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -26,16 +26,16 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="tools" instance="com.eogile.eogpt.settings.EoGPTSettingsConfigurable"
-                                 id="com.eogile.eogpt.settings.EoGPTSettingsConfigurable"
-                                 displayName="EoGPT Settings"/>
-        <applicationService serviceImplementation="com.eogile.eogpt.settings.EoGPTSettingsState"/>
+        <applicationConfigurable parentId="tools" instance="com.vcque.prompto.settings.PromptoSettingsConfigurable"
+                                 id="com.vcque.prompto.settings.PromptoSettingsConfigurable"
+                                 displayName="Prompto Settings"/>
+        <applicationService serviceImplementation="com.vcque.prompto.settings.PromptoSettingsState"/>
         <intentionAction>
-            <className>com.eogile.eogpt.EoGPTEnhanceAction</className>
+            <className>com.vcque.prompto.PromptoEnhanceAction</className>
             <category>Java</category>
         </intentionAction>
         <intentionAction>
-            <className>com.eogile.eogpt.EoGPTExplainAction</className>
+            <className>com.vcque.prompto.PromptoExplainAction</className>
             <category>Java</category>
         </intentionAction>
     </extensions>

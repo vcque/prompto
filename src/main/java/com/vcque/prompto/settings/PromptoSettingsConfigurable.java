@@ -1,4 +1,4 @@
-package com.eogile.eogpt.settings;
+package com.vcque.prompto.settings;
 
 import com.intellij.openapi.options.Configurable;
 import org.jetbrains.annotations.Nls;
@@ -6,14 +6,14 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class EoGPTSettingsConfigurable implements Configurable {
+public class PromptoSettingsConfigurable implements Configurable {
 
-  private EoGPTSettingsComponent settingsComponent;
+  private PromptoSettingsComponent settingsComponent;
 
   @Nls(capitalization = Nls.Capitalization.Title)
   @Override
   public String getDisplayName() {
-    return "EoGPT settings example";
+    return "Prompto settings";
   }
 
   @Override
@@ -24,26 +24,26 @@ public class EoGPTSettingsConfigurable implements Configurable {
   @Nullable
   @Override
   public JComponent createComponent() {
-    settingsComponent = new EoGPTSettingsComponent();
+    settingsComponent = new PromptoSettingsComponent();
     return settingsComponent.getPanel();
   }
 
   @Override
   public boolean isModified() {
-    var settings = EoGPTSettingsState.getInstance();
+    var settings = PromptoSettingsState.getInstance();
     boolean modified = !settingsComponent.getApiToken().equals(settings.apiToken);
     return modified;
   }
 
   @Override
   public void apply() {
-    var settings = EoGPTSettingsState.getInstance();
+    var settings = PromptoSettingsState.getInstance();
     settings.apiToken = settingsComponent.getApiToken();
   }
 
   @Override
   public void reset() {
-    var settings = EoGPTSettingsState.getInstance();
+    var settings = PromptoSettingsState.getInstance();
     settingsComponent.setApiToken("");
     settings.apiToken = "";
   }

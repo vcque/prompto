@@ -1,6 +1,6 @@
-package com.eogile.eogpt;
+package com.vcque.prompto;
 
-import com.eogile.eogpt.settings.EoGPTSettingsState;
+import com.vcque.prompto.settings.PromptoSettingsState;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
@@ -10,13 +10,13 @@ import com.theokanning.openai.service.OpenAiService;
 import java.time.Duration;
 import java.util.List;
 
-public class EoGPTManager {
+public class PromptoManager {
 
-    private static final EoGPTManager INSTANCE = new EoGPTManager();
+    private static final PromptoManager INSTANCE = new PromptoManager();
 
     private static final String LLM_MODEL = "gpt-3.5-turbo";
 
-    public static EoGPTManager instance() {
+    public static PromptoManager instance() {
         return INSTANCE;
     }
 
@@ -24,7 +24,7 @@ public class EoGPTManager {
     private String currentToken = null;
 
     public void updateToken() {
-        var token = EoGPTSettingsState.getInstance().apiToken;
+        var token = PromptoSettingsState.getInstance().apiToken;
         if (token == null || token.isEmpty()) {
             throw new RuntimeException("Please add your OpenAI key to the settings plugin.");
         }

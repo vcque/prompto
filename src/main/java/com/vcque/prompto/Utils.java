@@ -1,4 +1,4 @@
-package com.eogile.eogpt;
+package com.vcque.prompto;
 
 import java.util.ArrayList;
 import java.util.List;
