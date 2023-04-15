@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.vcque"
-version = "1.0-SNAPSHOT"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -42,9 +42,9 @@ tasks {
     }
 
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+        certificateChain.set(File("./sign/chain.crt").readText(Charsets.UTF_8))
+        privateKey.set(File("./sign/private.pem").readText(Charsets.UTF_8))
+        password.set(File("./sign/password").readText(Charsets.UTF_8))
     }
 
     publishPlugin {
