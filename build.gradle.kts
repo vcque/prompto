@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.7.20"
     id("org.jetbrains.intellij") version "1.13.3"
+    id("io.freefair.lombok") version "6.5.1"
 }
 
 group = "com.vcque"
@@ -24,6 +25,7 @@ intellij {
 dependencies {
     implementation("com.theokanning.openai-gpt3-java:service:0.12.0")
     implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("org.projectlombok:lombok:1.18.26")
 }
 
 tasks {
