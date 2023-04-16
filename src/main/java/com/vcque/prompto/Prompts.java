@@ -60,6 +60,19 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage fileStructureContext(String contextValue) {
+        return new ChatMessage(
+                ChatMessageRole.SYSTEM.value(),
+                """
+                        This is the project's file structure:
+                        ```
+                        %s
+                        ```
+                        """.formatted(contextValue)
+        );
+    }
+
+
     public static ChatMessage methodOutput() {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
