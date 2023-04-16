@@ -92,6 +92,15 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage addToExistingOutput() {
+        return new ChatMessage(ChatMessageRole.SYSTEM.value(),
+                """
+                        The user's next message will ask you to generate new content inside the provided file.
+                        Respond with a code snippet that can be inserted in the file content.
+                        """
+        );
+    }
+
     public static ChatMessage answermeOutput() {
         return new ChatMessage(
                 ChatMessageRole.USER.value(),

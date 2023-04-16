@@ -35,15 +35,19 @@
         />
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoClipboardAction</className>
-            <category>Java</category>
+            <category>Prompto</category>
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoRewriteMethodAction</className>
-            <category>Java</category>
+            <category>Prompto</category>
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoExplainAction</className>
-            <category>Java</category>
+            <category>Prompto</category>
+        </intentionAction>
+        <intentionAction>
+            <className>com.vcque.prompto.actions.PromptoAddAction</className>
+            <category>Prompto</category>
         </intentionAction>
     </extensions>
 </idea-plugin>
