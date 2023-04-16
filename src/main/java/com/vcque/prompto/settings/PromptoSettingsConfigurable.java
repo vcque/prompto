@@ -13,7 +13,7 @@ public class PromptoSettingsConfigurable implements Configurable {
   @Nls(capitalization = Nls.Capitalization.Title)
   @Override
   public String getDisplayName() {
-    return "Prompto settings";
+    return "Prompto";
   }
 
   @Override
@@ -31,8 +31,7 @@ public class PromptoSettingsConfigurable implements Configurable {
   @Override
   public boolean isModified() {
     var settings = PromptoSettingsState.getInstance();
-    boolean modified = !settingsComponent.getApiToken().equals(settings.apiToken);
-    return modified;
+    return !settingsComponent.getApiToken().equals(settings.apiToken);
   }
 
   @Override

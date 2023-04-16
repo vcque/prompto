@@ -7,9 +7,6 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ide.CopyPasteManager;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElement;
@@ -54,21 +51,16 @@ public class PromptoClipboardAction extends PsiElementBaseIntentionAction implem
             return;
         }
 
-        ProgressManager.getInstance().run(new Task.Backgroundable(project, "prompto clipboard", false) {
-            @Override
-            public void run(@NotNull ProgressIndicator indicator) {
-                var result = PromptoManager.instance().buildPrompt(text, userInput);
-                var transferable = new StringSelection(result);
-                CopyPasteManager.getInstance().setContents(transferable);
+        var result = PromptoManager.instance().buildPrompt(text, userInput);
+        var transferable = new StringSelection(result);
+        CopyPasteManager.getInstance().setContents(transferable);
 
-                var notification = new Notification(
-                        "Prompto",
-                        "Prompt copied",
-                        "Your prompt and its context has been copied to your clipboard.",
-                        NotificationType.INFORMATION);
-                Notifications.Bus.notify(notification, project);
-            }
-        });
+        var notification = new Notification(
+                "Prompto",
+                "Prompt copied",
+                "Your prompt and its context has been copied to your clipboard.",
+                NotificationType.INFORMATION);
+        Notifications.Bus.notify(notification, project);
     }
 
     @Override
