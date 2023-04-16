@@ -10,6 +10,7 @@ import com.intellij.psi.PsiManager;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.vcque.prompto.Prompts;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,7 @@ public class FileStructureContext implements PromptoContext {
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        return true;
+        return findRootFolder(project) != null;
     }
 
     @Override
@@ -33,6 +34,17 @@ public class FileStructureContext implements PromptoContext {
     }
 
     public String buildFileStructure(Project project) {
+        var psiBaseDir = findRootFolder(project);
+        if (psiBaseDir == null) {
+            return null;
+        }
+
+        List<String> fileStructure = retrieveFile(psiBaseDir, "");
+        return String.join("\n", fileStructure);
+    }
+
+    @Nullable
+    private PsiDirectory findRootFolder(Project project) {
         var psiManager = PsiManager.getInstance(project);
 
         // Get the project base directory
@@ -40,13 +52,7 @@ public class FileStructureContext implements PromptoContext {
         if (baseDir == null) {
             return null;
         }
-        var psiBaseDir = psiManager.findDirectory(baseDir);
-        if (psiBaseDir == null) {
-            return null;
-        }
-
-        List<String> fileStructure = retrieveFile(psiBaseDir, "");
-        return String.join("\n", fileStructure);
+        return psiManager.findDirectory(baseDir);
     }
 
 
