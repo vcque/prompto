@@ -2,7 +2,6 @@ package com.vcque.prompto;
 
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
-import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
 import com.vcque.prompto.exceptions.MissingTokenException;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -12,7 +11,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PromptoManager {
 
@@ -49,7 +47,6 @@ public class PromptoManager {
         chatMessages.add(pipeline.getOutput().chatMessage());
         chatMessages.add(Prompts.userInput(userInput));
 
-
         // Send messages to OpenAI
         var result = openAI.createChatCompletion(
                 ChatCompletionRequest.builder()
@@ -61,22 +58,18 @@ public class PromptoManager {
         );
 
         // Call pipeline.output with the results
-        var extractedResults = pipeline.getOutput().extractOutput(result.getChoices().get(0).getMessage().getContent());
-        pipeline.getExecution().accept(extractedResults, scope);
+        var extractedResult = pipeline.getOutput().extractOutput(result.getChoices().get(0).getMessage().getContent());
+        pipeline.getExecution().accept(extractedResult, scope);
     }
 
-    public String buildPrompt(String text, String userInput) {
-        return Stream.of(
-                        Prompts.codingAssistant(),
-                        Prompts.editorContext(text),
-                        new ChatMessage(
-                                ChatMessageRole.SYSTEM.value(),
-                                """
-                                        I will instruct you a task about the provided file.
-                                        Do answer truthfully. If you don't know how to do the task, say so and provide the reasons why.
-                                        """
-                        ),
-                        Prompts.userInput(userInput))
+    public <T> String buildManualPrompt(PromptoPipeline<T> pipeline, List<ChatMessage> contextMessages, String userInput) {
+        var chatMessages = new ArrayList<ChatMessage>();
+        chatMessages.add(Prompts.codingAssistant());
+        chatMessages.addAll(contextMessages);
+        chatMessages.add(pipeline.getOutput().chatMessage());
+        chatMessages.add(Prompts.userInput(userInput));
+
+        return chatMessages.stream()
                 .map(ChatMessage::getContent)
                 .collect(Collectors.joining("\n"));
     }

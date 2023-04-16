@@ -79,6 +79,16 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage answermeOutput() {
+        return new ChatMessage(
+                ChatMessageRole.USER.value(),
+                """
+                        I will instruct you a task about the provided file.
+                        Do answer truthfully. If you don't know how to do the task, say so and provide the reasons why.
+                        """
+        );
+    }
+
     public static ChatMessage userInput(String userInput) {
         return new ChatMessage(ChatMessageRole.USER.value(), userInput);
     }
