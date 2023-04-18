@@ -42,11 +42,11 @@
             <category>Prompto</category>
         </intentionAction>
         <intentionAction>
-            <className>com.vcque.prompto.actions.PromptoExplainAction</className>
+            <className>com.vcque.prompto.actions.PromptoAskAction</className>
             <category>Prompto</category>
         </intentionAction>
         <intentionAction>
-            <className>com.vcque.prompto.actions.PromptoAddAction</className>
+            <className>com.vcque.prompto.actions.PromptoRawInsertAction</className>
             <category>Prompto</category>
         </intentionAction>
     </extensions>

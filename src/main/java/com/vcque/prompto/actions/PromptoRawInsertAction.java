@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * An action that adds new content to the current file.
  */
-public class PromptoAddAction extends PromptoAction<String> {
+public class PromptoRawInsertAction extends PromptoAction<String> {
 
     @Override
     public PromptoPipeline<String> pipeline() {
         return PromptoPipeline.<String>builder()
-                .name("add")
+                .name("raw insert")
                 .contexts(List.of(
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext())

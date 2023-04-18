@@ -21,14 +21,14 @@ public class PromptoRewriteMethodAction extends PromptoAction<String> {
     @Override
     public PromptoPipeline<String> pipeline() {
         return PromptoPipeline.<String>builder()
-                .name("rewrite")
+                .name("rewrite method")
                 .contexts(List.of(
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
                         PromptoContextDefinition.of(new MethodNameContext()),
                         PromptoContextDefinition.ofOptional(new SelectionContext())
                 ))
-                .defaultInput("Enhance it and add javadoc")
+                .defaultInput("Add documentation")
                 .output(new MethodOutput())
                 .execution((result, scope) -> {
                     var project = scope.project();

@@ -11,12 +11,12 @@ import com.vcque.prompto.pipelines.PromptoPipeline;
 
 import java.util.List;
 
-public class PromptoExplainAction extends PromptoAction<String> {
+public class PromptoAskAction extends PromptoAction<String> {
 
     @Override
     public PromptoPipeline<String> pipeline() {
         return PromptoPipeline.<String>builder()
-                .name("explain")
+                .name("ask")
                 .contexts(List.of(
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
@@ -25,7 +25,7 @@ public class PromptoExplainAction extends PromptoAction<String> {
                 .defaultInput("What does this code do ?")
                 .output(new ShortAnswerOutput())
                 .execution((result, scope) -> {
-                    ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result, "Explanation"));
+                    ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result, "Ask Prompto"));
                 })
                 .build();
     }
