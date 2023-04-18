@@ -1,30 +1,41 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>com.vcque.prompto</id>
-
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>Prompto</name>
-
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="vocquet.ocquet@gmail.com" url="https://github.com/vcque">Vincent Ocquet</vendor>
 
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    ChatGPT integration for IntelliJ code generation.<br>
-    <em>ChatGPT</em>
-  ]]></description>
+      <p>A coding assistant based on ChatGPT 3.5.</p>
+      <br>
+      <p>
+        This plugin provides actions that capture your current editor's state to contextualize the prompt you send to ChatGPT. <br>
+        Each action lists the context sent so that you can <strong>be mindful of potential issues with private or sensitive data</strong>.
+      </p>
+      <br>
+      <p>
+        To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented the following Prompto actions:
+        <ul>
+        <li>prompto <strong>ask</strong>: asks a simple question about the visualized code.</li>
+        <li>prompto <strong>rewrite method</strong>: rewrites the current method based on your input (ex: add documentation or fix this issue).</li>
+        <li>prompto <strong>raw insert</strong>: generates anything based on your input and inserts it at your current caret location.</li>
+        <li>prompto <strong>clipboard</strong>: captures your editor's state, builds a Prompto prompt and saves it to your clipboard so that you can use it in the chatGPT webapp.</li>
+        </ul>
+      </p>
+      <p>
+        Here is some tips and use-cases:
+        <ul>
+        <li>If you don't have an API key, you can still use prompto clipboard and paste it in the chatGPT webapp.</li>
+        <li>Prompto answers often lack accuracy and you will have to proof check it. It still provides an amazing starting point to iterate upon.</li>
+        <li>Prompto is best used in simple but lengthy tasks such as: writing documentation, unit tests, mock dataset, converter methods, etc...</li>
+        <li>Prompto has way more knowledge about well-known cases and technologies than niche ones.</li>
+        <li>Prompto's attention span is limited and will provide better answers for short or medium files and might outright fail for big ones.</li>
+        </ul>
+      </p>
 
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+      <p>Feedback is welcome at <a href="https://github.com/vcque/prompto">https://github.com/vcque/prompto</a>, have fun!</p>
+    ]]></description>
+
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
-
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable parentId="tools" instance="com.vcque.prompto.settings.PromptoSettingsConfigurable"
                                  id="com.vcque.prompto.settings.PromptoSettingsConfigurable"
