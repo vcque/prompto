@@ -59,7 +59,7 @@ public class FileStructureContext implements PromptoContext {
     private List<String> retrieveFile(PsiDirectory directory, String indent) {
         var changeListManager = ChangeListManager.getInstance(directory.getProject());
 
-        var nextIndent = indent + "->";
+        var nextIndent = indent + "  ";
 
         var fileStructure = Arrays.stream(directory.getSubdirectories())
                 .flatMap(sub -> retrieveFile(sub, nextIndent).stream())
