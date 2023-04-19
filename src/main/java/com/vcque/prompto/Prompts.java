@@ -91,8 +91,8 @@ public class Prompts {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
                 """
-                        The user's next message will communicate instructions that you have to implement.
-                        Always respond with a code snippet of a valid method. If you want to add additional context information, embed it in comments.
+                        Your task is to rewrite the context method based on the next user input.
+                        Always respond with the code snippet of a valid method.
                         """.trim()
         );
     }
