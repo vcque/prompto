@@ -75,6 +75,17 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage typesContext(String contextValue) {
+        return new ChatMessage(
+                ChatMessageRole.SYSTEM.value(),
+                """
+                        Here are additional type definitions:
+                        ```
+                        %s
+                        ```
+                        """.formatted(contextValue)
+        );
+    }
 
     public static ChatMessage methodOutput() {
         return new ChatMessage(

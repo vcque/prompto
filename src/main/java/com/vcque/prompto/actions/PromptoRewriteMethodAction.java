@@ -8,7 +8,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.vcque.prompto.contexts.FileContentContext;
 import com.vcque.prompto.contexts.LanguageContext;
 import com.vcque.prompto.contexts.MethodNameContext;
-import com.vcque.prompto.contexts.SelectionContext;
+import com.vcque.prompto.contexts.MethodTypesContext;
 import com.vcque.prompto.outputs.MethodOutput;
 import com.vcque.prompto.pipelines.PromptoContextDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -26,7 +26,7 @@ public class PromptoRewriteMethodAction extends PromptoAction<String> {
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
                         PromptoContextDefinition.of(new MethodNameContext()),
-                        PromptoContextDefinition.ofOptional(new SelectionContext())
+                        PromptoContextDefinition.of(new MethodTypesContext())
                 ))
                 .defaultInput("Add documentation")
                 .output(new MethodOutput())

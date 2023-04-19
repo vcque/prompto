@@ -11,10 +11,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
 import com.vcque.prompto.PromptoManager;
-import com.vcque.prompto.contexts.FileStructureContext;
-import com.vcque.prompto.contexts.FileContentContext;
-import com.vcque.prompto.contexts.LanguageContext;
-import com.vcque.prompto.contexts.SelectionContext;
+import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.AnswerMeOutput;
 import com.vcque.prompto.pipelines.PromptoContextDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -37,7 +34,7 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
                         PromptoContextDefinition.ofOptional(new SelectionContext()),
-                        PromptoContextDefinition.ofOptional(new FileStructureContext())
+                        PromptoContextDefinition.ofOptional(new MethodTypesContext())
                 ))
                 .defaultInput("What does this code do ?")
                 .output(new AnswerMeOutput())
