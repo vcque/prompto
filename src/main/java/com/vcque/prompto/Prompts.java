@@ -91,7 +91,7 @@ public class Prompts {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
                 """
-                        Your task is to rewrite the context method based on the next user input.
+                        Your task is to rewrite the context method based on the user's next input.
                         Always respond with the code snippet of a valid method.
                         """.trim()
         );
@@ -100,8 +100,8 @@ public class Prompts {
     public static ChatMessage shortAnswerOutput() {
         return new ChatMessage("system",
                 """
-                        The user's next message will ask you questions about the provided file.
-                        Your task is to respond to him with the least words possible. Do not add code snippet.
+                        Your task is to answer the user's next question based on the provided context.
+                        Answer with only the most relevant information and with the least words possible.
                         """
         );
     }
@@ -109,8 +109,8 @@ public class Prompts {
     public static ChatMessage addToExistingOutput() {
         return new ChatMessage(ChatMessageRole.SYSTEM.value(),
                 """
-                        The user's next message will ask you to generate new content inside the provided file.
-                        Respond with a code snippet that can be inserted in the file content.
+                        Your task is to generate content based on the user's next input.
+                        Respond with a code snippet that will be inserted in the current editor.
                         """
         );
     }
