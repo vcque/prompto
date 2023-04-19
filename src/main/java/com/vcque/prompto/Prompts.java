@@ -55,7 +55,10 @@ public class Prompts {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
                 """
-                        This is the user's current selection: `%s`
+                        This is the user's current selection:
+                        ```
+                        %s
+                        ```
                         """.formatted(contextValue)
         );
     }
