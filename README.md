@@ -1,6 +1,6 @@
 # Prompto - ChatGPT 3.5 Coding Assistant
 
-A coding assistant plugin based on ChatGPT 3.5.
+A coding assistant plugin based on ChatGPT.
 
 ## Features
 
@@ -29,7 +29,3 @@ Feedback is welcome at [https://github.com/vcque/prompto](https://github.com/vcq
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Also
-
-Readme generated with GPT-4 ;-)

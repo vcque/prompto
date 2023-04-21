@@ -4,7 +4,7 @@
     <vendor email="vocquet.ocquet@gmail.com" url="https://github.com/vcque">Vincent Ocquet</vendor>
 
     <description><![CDATA[
-      <p>A coding assistant based on ChatGPT 3.5.</p>
+      <p>A coding assistant based on ChatGPT.</p>
       <br>
       <p>
         This plugin provides actions that capture your current editor's state to contextualize the prompt you send to ChatGPT. <br>
