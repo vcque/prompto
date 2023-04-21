@@ -65,7 +65,9 @@ public class AvailableClassesContext implements PromptoContext {
         var editorPsiClass = Utils.findParentOfType(element, PsiClass.class);
 
         // will contain the final classes to add to context
-        var results = new HashSet<PsiClass>();
+        var results = new HashSet<PsiClassResult>();
+        var alreadyVisited = new HashSet<PsiClass>();
+        alreadyVisited.add(editorPsiClass);
 
         var toVisit = retrieveAllAdjacentClasses(editorPsiClass);
         var depth = 0;
@@ -76,29 +78,67 @@ public class AvailableClassesContext implements PromptoContext {
             // Would it be better to prioritize based on minimum cost of each class ?
             for (PsiClass psiClass : toVisit) {
                 var text = psiClass.getText();
-                if (results.contains(psiClass) || text == null) {
+                if (alreadyVisited.contains(psiClass) || text == null) {
                     // Some generated classes can return null text (e.g. lombok stuff)
                     continue;
                 }
-                var classCost = Utils.countTokens(text);
-                if (totalCost + classCost < config.maxCost) {
-                    results.add(psiClass);
+                var resultOpt = toResult(psiClass, depth);
+                if (resultOpt.isEmpty()) {
+                    continue;
+                }
+                var result = resultOpt.get();
+
+                if (totalCost + result.cost() < config.maxCost) {
+                    results.add(result);
+                    alreadyVisited.add(psiClass);
                     nextBatch.addAll(retrieveAllAdjacentClasses(psiClass));
-                    totalCost += classCost;
+                    totalCost += result.cost();
                 }
             }
             toVisit = nextBatch;
         }
 
-        // Just in case there's some cyclic dependencies
-        results.remove(editorPsiClass);
-        return results.stream().map(PsiElement::getContainingFile)
-                .distinct()
-                .map(PsiElement::getText)
+        return results.stream()
+                .sorted(Comparator.comparing(PsiClassResult::depth))
+                .map(PsiClassResult::text)
                 .collect(Collectors.joining("\n\n"))
-                .replaceAll("import .*;", "")
-                .replaceAll("package .*;", "")
-                .replaceAll("(\n\\s*){3,}", "\n\n");
+                .replaceAll("\\s+\n", "\n") // Removes trailing spaces
+                .replaceAll("\n{3,}", "\n\n"); // Removes too many new lines
+    }
+
+    record PsiClassResult(PsiClass psiClass, int depth, String text, int cost) {
+    }
+
+    private Optional<PsiClassResult> toResult(PsiClass psiClass, int depth) {
+        var text = shrink(psiClass).getText();
+        if (text == null || text.isBlank()) {
+            return Optional.empty();
+        }
+        var cost = Utils.countTokens(text);
+        return Optional.of(new PsiClassResult(psiClass, depth, text, cost));
+    }
+
+    private PsiClass shrink(PsiClass psiClass) {
+        var emptyCodeBlock = PsiElementFactory.getInstance(psiClass.getProject()).createCodeBlock();
+        emptyCodeBlock.add(PsiElementFactory.getInstance(psiClass.getProject()).createCommentFromText("// ...", emptyCodeBlock));
+        var clonedPsiClass = (PsiClass) psiClass.copy();
+        // Who cares about private methods implementation ? Every abstraction is perfect.
+        for (var method : clonedPsiClass.getMethods()) {
+            var body = method.getBody();
+            if (body != null) {
+                body.replace(emptyCodeBlock);
+            }
+        }
+
+        // Inner classes can be matched by the recursive search, no need to print them twice
+        for (var innerClass : clonedPsiClass.getAllInnerClasses()) {
+            try {
+                innerClass.delete();
+            } catch (Exception e) {
+                // do nothing
+            }
+        }
+        return clonedPsiClass;
     }
 
     @NotNull
