@@ -60,7 +60,7 @@ public class PromptoClipboardAction extends PromptoAction<String> {
         var pipeline = pipeline();
         var scope = new PromptoPipeline.Scope(project, editor, element);
 
-        var title = "Prompto clipboard";
+        var title = "Prompto Clipboard";
         var message = "What do you want ?";
         var initialValue = "Can you do a code review of this ?";
 
