@@ -35,7 +35,12 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                         PromptoContextDefinition.ofOptional(new ProjectContext()),
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.ofOptional(new SelectionContext()),
-                        PromptoContextDefinition.ofOptional(new AvailableClassesContext())
+                        PromptoContextDefinition.ofOptional(new AvailableClassesContext(
+                                new AvailableClassesContext.Config(
+                                        1000,
+                                        5
+                                )
+                        ))
                 ))
                 .defaultInput("What does this code do ?")
                 .output(new AnswerMeOutput())

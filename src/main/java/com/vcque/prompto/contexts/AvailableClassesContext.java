@@ -7,21 +7,43 @@ import com.intellij.psi.*;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.vcque.prompto.Prompts;
 import com.vcque.prompto.Utils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Retrieve the definition of arguments and return types.
+ * Retrieve recursively the class definitions that the user can access from the editor.
  */
 public class AvailableClassesContext implements PromptoContext {
 
-    /** Max token cost of this context. Need to make this configurable. */
-    private static final int MAX_COST = 2500;
-    /** Max depth of the class search. */
-    private static final int MAX_DEPTH = 5;
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Config {
+        /**
+         * Max token cost of this context. Need to make this configurable.
+         */
+        private int maxCost = 2000;
+        /**
+         * Max depth of the recursive search.
+         */
+        private int maxDepth = 5;
+    }
 
+    private final Config config;
+
+    /** With default config. */
+    public AvailableClassesContext() {
+        this.config = new Config();
+    }
+
+    public AvailableClassesContext(Config config) {
+        this.config = config;
+    }
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
@@ -31,10 +53,10 @@ public class AvailableClassesContext implements PromptoContext {
     /**
      * Retrieve the context of the current method by finding all adjacent classes and returning their text.
      * The context is defined as the text of all classes that are directly or indirectly used by the current method.
-     * The search is limited to a maximum depth of {@link #MAX_DEPTH} and a maximum cost of {@link #MAX_COST}.
+     * The search is limited to a maximum depth of config.maxDepth and a maximum cost of config.maxCost.
      *
      * @param project the current project
-     * @param editor the current editor
+     * @param editor  the current editor
      * @param element the current element
      * @return the context of the current method as a string containing the text of all adjacent classes
      */
@@ -49,7 +71,7 @@ public class AvailableClassesContext implements PromptoContext {
         var depth = 0;
         var totalCost = 0;
 
-        while (depth++ < MAX_DEPTH && !toVisit.isEmpty()) {
+        while (depth++ < config.maxDepth && !toVisit.isEmpty()) {
             var nextBatch = new HashSet<PsiClass>();
             // Would it be better to prioritize based on minimum cost of each class ?
             for (PsiClass psiClass : toVisit) {
@@ -59,7 +81,7 @@ public class AvailableClassesContext implements PromptoContext {
                     continue;
                 }
                 var classCost = Utils.countTokens(text);
-                if (totalCost + classCost < MAX_COST) {
+                if (totalCost + classCost < config.maxCost) {
                     results.add(psiClass);
                     nextBatch.addAll(retrieveAllAdjacentClasses(psiClass));
                     totalCost += classCost;
