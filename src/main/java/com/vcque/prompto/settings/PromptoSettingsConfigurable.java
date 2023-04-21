@@ -8,48 +8,49 @@ import javax.swing.*;
 
 public class PromptoSettingsConfigurable implements Configurable {
 
-  private PromptoSettingsComponent settingsComponent;
+    private PromptoSettingsComponent settingsComponent;
 
-  @Nls(capitalization = Nls.Capitalization.Title)
-  @Override
-  public String getDisplayName() {
-    return "Prompto";
-  }
+    @Nls(capitalization = Nls.Capitalization.Title)
+    @Override
+    public String getDisplayName() {
+        return "Prompto";
+    }
 
-  @Override
-  public JComponent getPreferredFocusedComponent() {
-    return settingsComponent.getPreferredFocusedComponent();
-  }
+    @Override
+    public JComponent getPreferredFocusedComponent() {
+        return settingsComponent.getPreferredFocusedComponent();
+    }
 
-  @Nullable
-  @Override
-  public JComponent createComponent() {
-    settingsComponent = new PromptoSettingsComponent();
-    return settingsComponent.getPanel();
-  }
+    @Nullable
+    @Override
+    public JComponent createComponent() {
+        settingsComponent = new PromptoSettingsComponent();
+        return settingsComponent.getPanel();
+    }
 
-  @Override
-  public boolean isModified() {
-    var settings = PromptoSettingsState.getInstance();
-    return !settingsComponent.getApiToken().equals(settings.apiToken);
-  }
+    @Override
+    public boolean isModified() {
+        var settings = PromptoSettingsState.getInstance();
+        return !settingsComponent.getApiToken().equals(settings.apiToken)
+                || !settingsComponent.getProjectContext().equals(settings.projectContext);
+    }
 
-  @Override
-  public void apply() {
-    var settings = PromptoSettingsState.getInstance();
-    settings.apiToken = settingsComponent.getApiToken();
-  }
+    @Override
+    public void apply() {
+        var settings = PromptoSettingsState.getInstance();
+        settings.apiToken = settingsComponent.getApiToken();
+        settings.projectContext = settingsComponent.getProjectContext();
+    }
 
-  @Override
-  public void reset() {
-    var settings = PromptoSettingsState.getInstance();
-    settingsComponent.setApiToken("");
-    settings.apiToken = "";
-  }
+    @Override
+    public void reset() {
+        settingsComponent.setApiToken(PromptoSettingsState.getInstance().apiToken);
+        settingsComponent.setProjectContext(PromptoSettingsState.getInstance().projectContext);
+    }
 
-  @Override
-  public void disposeUIResources() {
-    settingsComponent = null;
-  }
+    @Override
+    public void disposeUIResources() {
+        settingsComponent = null;
+    }
 
 }

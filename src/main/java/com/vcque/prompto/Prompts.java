@@ -23,16 +23,6 @@ public class Prompts {
         );
     }
 
-    /**
-     * Make it configurable on a per-project basis.
-     */
-    public static ChatMessage projectContext() {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                "Use modern langage feature, streams, lombok and assertj when applicable."
-        );
-    }
-
     public static ChatMessage editorContext(String file) {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),

@@ -16,9 +16,9 @@ public class PromptoAskAction extends PromptoAction<String> {
         return PromptoPipeline.<String>builder()
                 .name("ask")
                 .contexts(List.of(
-                        PromptoContextDefinition.of(new FileContentContext()),
-                        PromptoContextDefinition.of(new ProjectContext()),
+                        PromptoContextDefinition.ofOptional(new ProjectContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
+                        PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.ofOptional(new SelectionContext()),
                         PromptoContextDefinition.ofOptional(new AvailableClassesContext())
                 ))

@@ -31,9 +31,9 @@ public class PromptoClipboardAction extends PromptoAction<String> {
         return PromptoPipeline.<String>builder()
                 .name("clipboard")
                 .contexts(List.of(
-                        PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
-                        PromptoContextDefinition.of(new ProjectContext()),
+                        PromptoContextDefinition.ofOptional(new ProjectContext()),
+                        PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.ofOptional(new SelectionContext()),
                         PromptoContextDefinition.ofOptional(new AvailableClassesContext())
                 ))

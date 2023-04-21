@@ -18,9 +18,9 @@ public class PromptoRewriteMethodAction extends PromptoAction<String> {
         return PromptoPipeline.<String>builder()
                 .name("rewrite method")
                 .contexts(List.of(
-                        PromptoContextDefinition.of(new FileContentContext()),
-                        PromptoContextDefinition.of(new ProjectContext()),
+                        PromptoContextDefinition.ofOptional(new ProjectContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
+                        PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new MethodNameContext()),
                         PromptoContextDefinition.of(new AvailableClassesContext())
                 ))
