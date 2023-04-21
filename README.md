@@ -10,7 +10,6 @@ To use it, fill in your API key in Prompto settings and press Alt-Enter in the e
 
 - `prompto ask`: asks a simple question about the visualized code.
 - `prompto rewrite method`: rewrites the current method based on your input (e.g., add documentation or fix this issue).
-- `prompto raw insert`: generates anything based on your input and inserts it at your current caret location.
 - `prompto clipboard`: captures your editor's state, builds a Prompto prompt, and saves it to your clipboard so that you can use it in the ChatGPT web app.
 
 ## Tips and Use-cases

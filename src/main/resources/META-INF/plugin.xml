@@ -16,7 +16,6 @@
         <ul>
         <li>prompto <strong>ask</strong>: asks a simple question about the visualized code.</li>
         <li>prompto <strong>rewrite method</strong>: rewrites the current method based on your input (e.g., add documentation or fix this issue).</li>
-        <li>prompto <strong>raw insert</strong>: generates anything based on your input and inserts it at your current caret location.</li>
         <li>prompto <strong>clipboard</strong>: captures your editor's state, builds a Prompto prompt, and saves it to your clipboard so that you can use it in the ChatGPT web app.</li>
         </ul>
       </p>
@@ -54,10 +53,6 @@
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoAskAction</className>
-            <category>Prompto</category>
-        </intentionAction>
-        <intentionAction>
-            <className>com.vcque.prompto.actions.PromptoRawInsertAction</className>
             <category>Prompto</category>
         </intentionAction>
     </extensions>
