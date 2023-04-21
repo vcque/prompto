@@ -153,10 +153,12 @@ public class AvailableClassesContext implements PromptoContext {
      */
     private PsiClass retrieveSources(PsiType type) {
         if (type instanceof PsiClassType classType) {
-            var project = type.getResolveScope().getProject();
             var psiClass = classType.resolve();
+            if (psiClass == null || psiClass instanceof PsiTypeParameter) {
+                return null;
+            }
             var containingFile = psiClass.getContainingFile();
-            var projectFileIndex = ProjectFileIndex.getInstance(project);
+            var projectFileIndex = ProjectFileIndex.getInstance(psiClass.getProject());
             var virtualFile = containingFile.getVirtualFile();
             return projectFileIndex.isInSource(virtualFile) ? psiClass : null;
         } else {
