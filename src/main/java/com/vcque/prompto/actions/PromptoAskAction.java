@@ -2,9 +2,7 @@ package com.vcque.prompto.actions;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.ui.Messages;
-import com.vcque.prompto.contexts.FileContentContext;
-import com.vcque.prompto.contexts.LanguageContext;
-import com.vcque.prompto.contexts.SelectionContext;
+import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.ShortAnswerOutput;
 import com.vcque.prompto.pipelines.PromptoContextDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -19,8 +17,10 @@ public class PromptoAskAction extends PromptoAction<String> {
                 .name("ask")
                 .contexts(List.of(
                         PromptoContextDefinition.of(new FileContentContext()),
+                        PromptoContextDefinition.of(new ProjectContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
-                        PromptoContextDefinition.ofOptional(new SelectionContext())
+                        PromptoContextDefinition.ofOptional(new SelectionContext()),
+                        PromptoContextDefinition.ofOptional(new AvailableClassesContext())
                 ))
                 .defaultInput("What does this code do ?")
                 .output(new ShortAnswerOutput())

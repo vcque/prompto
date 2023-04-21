@@ -33,6 +33,7 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                 .contexts(List.of(
                         PromptoContextDefinition.of(new FileContentContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
+                        PromptoContextDefinition.of(new ProjectContext()),
                         PromptoContextDefinition.ofOptional(new SelectionContext()),
                         PromptoContextDefinition.ofOptional(new AvailableClassesContext())
                 ))

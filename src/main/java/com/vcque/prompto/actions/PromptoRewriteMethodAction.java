@@ -4,10 +4,7 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiMethod;
 import com.vcque.prompto.Utils;
-import com.vcque.prompto.contexts.AvailableClassesContext;
-import com.vcque.prompto.contexts.FileContentContext;
-import com.vcque.prompto.contexts.LanguageContext;
-import com.vcque.prompto.contexts.MethodNameContext;
+import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.MethodOutput;
 import com.vcque.prompto.pipelines.PromptoContextDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -22,6 +19,7 @@ public class PromptoRewriteMethodAction extends PromptoAction<String> {
                 .name("rewrite method")
                 .contexts(List.of(
                         PromptoContextDefinition.of(new FileContentContext()),
+                        PromptoContextDefinition.of(new ProjectContext()),
                         PromptoContextDefinition.of(new LanguageContext()),
                         PromptoContextDefinition.of(new MethodNameContext()),
                         PromptoContextDefinition.of(new AvailableClassesContext())

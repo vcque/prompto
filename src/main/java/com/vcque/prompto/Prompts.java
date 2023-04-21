@@ -11,13 +11,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Prompts {
 
-    /** Conversation initializer. */
+    /**
+     * Conversation initializer.
+     */
     public static ChatMessage codingAssistant() {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
                 """
                         You are Prompto, an intelliJ coding assistant helping the user completing its programming tasks.
                         """.trim()
+        );
+    }
+
+    /**
+     * Make it configurable on a per-project basis.
+     */
+    public static ChatMessage projectContext() {
+        return new ChatMessage(
+                ChatMessageRole.SYSTEM.value(),
+                "Use modern langage feature, streams, lombok and assertj when applicable."
         );
     }
 
