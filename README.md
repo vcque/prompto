@@ -1,4 +1,4 @@
-# Prompto - ChatGPT 3.5 Coding Assistant
+# Prompto - ChatGPT Coding Assistant
 
 A coding assistant plugin based on ChatGPT.
 
