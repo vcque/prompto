@@ -36,7 +36,9 @@ public class AvailableClassesContext implements PromptoContext {
 
     private final Config config;
 
-    /** With default config. */
+    /**
+     * With default config.
+     */
     public AvailableClassesContext() {
         this.config = new Config();
     }
@@ -101,9 +103,9 @@ public class AvailableClassesContext implements PromptoContext {
         return results.stream()
                 .sorted(Comparator.comparing(PsiClassResult::depth))
                 .map(PsiClassResult::text)
-                .collect(Collectors.joining("\n\n"))
-                .replaceAll("\\s+\n", "\n") // Removes trailing spaces
-                .replaceAll("\n{3,}", "\n\n"); // Removes too many new lines
+                .map(text -> text.replaceAll("\\s+\n", "\n")) // remove trailing spaces
+                .map(text -> text.replaceAll("\n{2,}", "\n")) // remove multi-newlines
+                .collect(Collectors.joining("\n\n"));
     }
 
     record PsiClassResult(PsiClass psiClass, int depth, String text, int cost) {
