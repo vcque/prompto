@@ -1,8 +1,11 @@
 package com.vcque.prompto.actions;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiMethod;
+import com.vcque.prompto.PromptoResponse;
 import com.vcque.prompto.Utils;
 import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.MethodOutput;
@@ -11,11 +14,11 @@ import com.vcque.prompto.pipelines.PromptoPipeline;
 
 import java.util.List;
 
-public class PromptoRewriteMethodAction extends PromptoAction<String> {
+public class PromptoRewriteMethodAction extends PromptoAction<PromptoResponse> {
 
     @Override
-    public PromptoPipeline<String> pipeline() {
-        return PromptoPipeline.<String>builder()
+    public PromptoPipeline<PromptoResponse> pipeline() {
+        return PromptoPipeline.<PromptoResponse>builder()
                 .name("rewrite method")
                 .contexts(List.of(
                         PromptoContextDefinition.ofOptional(new ProjectContext()),
@@ -28,11 +31,17 @@ public class PromptoRewriteMethodAction extends PromptoAction<String> {
                 .output(new MethodOutput())
                 .execution((result, scope) -> {
                     var project = scope.project();
-                    WriteCommandAction.runWriteCommandAction(project, () -> {
-                        var oldMethod = Utils.findParentOfType(scope.element(), PsiMethod.class);
-                        var newMethod = PsiElementFactory.getInstance(project).createMethodFromText(result, oldMethod.getContext());
-                        oldMethod.replace(newMethod);
-                    });
+                    var editorBlock = result.firstBlock();
+                    if (editorBlock.isEmpty()) {
+                        ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result.getRaw(), "Prompto"));
+                    } else {
+                        var code = editorBlock.get().code();
+                        WriteCommandAction.runWriteCommandAction(project, () -> {
+                            var oldMethod = Utils.findParentOfType(scope.element(), PsiMethod.class);
+                            var newMethod = PsiElementFactory.getInstance(project).createMethodFromText(code, oldMethod.getContext());
+                            oldMethod.replace(newMethod);
+                        });
+                    }
                 })
                 .build();
     }

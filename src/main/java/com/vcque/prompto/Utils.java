@@ -14,19 +14,6 @@ public class Utils {
     private Utils() {
     }
 
-    static final Pattern EDITOR_PATTERN = Pattern.compile("(?s)```(?:java\n)?(.*?)```");
-
-    public static List<String> extractEditorContent(String text) {
-
-        var matcher = EDITOR_PATTERN.matcher(text);
-
-        List<String> contents = new ArrayList<>();
-        while (matcher.find()) {
-            contents.add(matcher.group(1));
-        }
-        return contents;
-    }
-
     /**
      * @return An approximate count of the number of tokens this text represents.
      */

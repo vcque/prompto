@@ -57,8 +57,10 @@ public class PromptoManager {
                         .build()
         );
 
-        // Call pipeline.output with the results
-        var extractedResult = pipeline.getOutput().extractOutput(result.getChoices().get(0).getMessage().getContent());
+        // Retrieve the LLM response message
+        var response = result.getChoices().get(0).getMessage().getContent();
+        var extractedResult = pipeline.getOutput().extractOutput(response);
+        // Execute the action
         pipeline.getExecution().accept(extractedResult, scope);
     }
 
