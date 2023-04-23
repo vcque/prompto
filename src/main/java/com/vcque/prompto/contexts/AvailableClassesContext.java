@@ -121,14 +121,16 @@ public class AvailableClassesContext implements PromptoContext {
     }
 
     private PsiClass shrink(PsiClass psiClass) {
-        var emptyCodeBlock = PsiElementFactory.getInstance(psiClass.getProject()).createCodeBlock();
-        emptyCodeBlock.add(PsiElementFactory.getInstance(psiClass.getProject()).createCommentFromText("// ...", emptyCodeBlock));
+        var codeBlock = PsiElementFactory
+                .getInstance(psiClass.getProject())
+                .createCodeBlockFromText("{ /* ... */ }", null);
+
         var clonedPsiClass = (PsiClass) psiClass.copy();
         // Who cares about private methods implementation ? Every abstraction is perfect.
         for (var method : clonedPsiClass.getMethods()) {
             var body = method.getBody();
             if (body != null) {
-                body.replace(emptyCodeBlock);
+                body.replace(codeBlock);
             }
         }
 
