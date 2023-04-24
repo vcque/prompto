@@ -1,5 +1,6 @@
 package com.vcque.prompto;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
@@ -109,6 +110,61 @@ public class Utils {
         return psiTypes;
     }
 
+    /**
+     * Try to merge code received as text into an existing psiClass.
+     * If the code represents a method:
+     * - If a method with the same signature exists in the psiClass, replace-it
+     * - Otherwise add the new method
+     * If the code represents multiple methods: do the same as above for each method
+     * If the code represents a class: retrieves the methods and do also as above with them
+     */
+    public static void mergePsiClasses(PsiClass psiClass, PsiClass addition) {
+        for (var newMethod : addition.getMethods()) {
+            boolean replaced = false;
+            for (var existingMethod : psiClass.getMethods()) {
+                if (hasSameSignature(newMethod, existingMethod)) {
+                    existingMethod.replace(newMethod);
+                    replaced = true;
+                    break;
+                }
+            }
+            if (!replaced) {
+                psiClass.add(newMethod);
+            }
+        }
+    }
+
+    public static boolean hasSameSignature(PsiMethod method, PsiMethod other) {
+        if (!method.getName().equals(other.getName())) {
+            return false;
+        }
+
+        var methodParams = method.getParameterList().getParameters();
+        var otherParams = other.getParameterList().getParameters();
+
+        if (methodParams.length != otherParams.length) {
+            return false;
+        }
+
+        for (int i = 0; i < methodParams.length; i++) {
+            var methodParam = methodParams[i];
+            var otherParam = otherParams[i];
+
+            if (!methodParam.getType().getPresentableText().equals(otherParam.getType().getPresentableText())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Return a PsiClass if the code represents a psiclass. Empty otherwise.
+     */
+    public static PsiClass asPsiClass(String code, Project project) {
+        var elementFactory = PsiElementFactory.getInstance(project);
+        return elementFactory.createClassFromText(code, null);
+    }
 
     public static <T extends PsiElement> T findParentOfType(@NotNull PsiElement element, Class<T> psi) {
         return psi.isInstance(psi) ? (T) element : PsiTreeUtil.getParentOfType(element, psi);
