@@ -8,7 +8,7 @@ public class MethodOutput implements PromptoOutput<PromptoResponse> {
 
     @Override
     public ChatMessage chatMessage() {
-        return Prompts.methodOutput();
+        return Prompts.rewriteMethodOutput();
     }
 
     @Override

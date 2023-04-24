@@ -89,12 +89,12 @@ public class Prompts {
         );
     }
 
-    public static ChatMessage methodOutput() {
+    public static ChatMessage rewriteMethodOutput() {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
                 """
                         Your task is to rewrite the context method based on the user's next input.
-                        Always respond with the code snippet of a valid method.
+                        The first code block you provide will replace the context method in the user's editor.
                         """.trim()
         );
     }
