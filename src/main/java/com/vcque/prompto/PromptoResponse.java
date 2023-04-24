@@ -1,9 +1,5 @@
 package com.vcque.prompto;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiMethod;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -44,7 +40,5 @@ public class PromptoResponse {
     }
 
     public record EditorBlock(String lang, String code) {
-
-
     }
 }
