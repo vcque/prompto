@@ -128,9 +128,11 @@ public class AvailableClassesContext implements PromptoContext {
         var clonedPsiClass = (PsiClass) psiClass.copy();
         // Who cares about private methods implementation ? Every abstraction is perfect.
         for (var method : clonedPsiClass.getMethods()) {
-            var body = method.getBody();
-            if (body != null) {
-                body.replace(codeBlock);
+            if (!method.getModifierList().hasModifierProperty(PsiModifier.PUBLIC)) {
+                var body = method.getBody();
+                if (body != null) {
+                    body.replace(codeBlock);
+                }
             }
         }
 
