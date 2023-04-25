@@ -72,6 +72,8 @@ public class AvailableClassesContext implements PromptoContext {
         alreadyVisited.add(editorPsiClass);
 
         var toVisit = retrieveAllAdjacentClasses(editorPsiClass);
+        toVisit.addAll(retrieveAllImports(editor));
+
         var depth = 0;
         var totalCost = 0;
 
@@ -104,6 +106,23 @@ public class AvailableClassesContext implements PromptoContext {
                 .sorted(Comparator.comparing(PsiClassResult::depth))
                 .map(PsiClassResult::text)
                 .collect(Collectors.joining("\n\n"));
+    }
+
+    private Collection<? extends PsiClass> retrieveAllImports(Editor editor) {
+        var psiFile = PsiDocumentManager.getInstance(editor.getProject()).getPsiFile(editor.getDocument());
+        if (psiFile instanceof PsiJavaFile javaFile) {
+            var importList = javaFile.getImportList();
+            if (importList == null) {
+                return List.of();
+            }
+            return Arrays.stream(importList.getImportStatements())
+                    .map(PsiImportStatement::resolve)
+                    .filter(Objects::nonNull)
+                    .filter(PsiClass.class::isInstance)
+                    .map(PsiClass.class::cast)
+                    .toList();
+        }
+        return List.of();
     }
 
     record PsiClassResult(PsiClass psiClass, int depth, String text, int cost) {
