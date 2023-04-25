@@ -103,8 +103,6 @@ public class AvailableClassesContext implements PromptoContext {
         return results.stream()
                 .sorted(Comparator.comparing(PsiClassResult::depth))
                 .map(PsiClassResult::text)
-                .map(text -> text.replaceAll("\\s+\n", "\n")) // remove trailing spaces
-                .map(text -> text.replaceAll("\n{2,}", "\n")) // remove multi-newlines
                 .collect(Collectors.joining("\n\n"));
     }
 
@@ -116,6 +114,9 @@ public class AvailableClassesContext implements PromptoContext {
         if (text == null || text.isBlank()) {
             return Optional.empty();
         }
+        text = text
+                .replaceAll("\\s+\n", "\n") // remove trailing spaces
+                .replaceAll("\n{2,}", "\n"); // remove multi-newlines
         var cost = Utils.countTokens(text);
         return Optional.of(new PsiClassResult(psiClass, depth, text, cost));
     }
@@ -149,8 +150,11 @@ public class AvailableClassesContext implements PromptoContext {
 
     @NotNull
     private Set<PsiClass> retrieveAllAdjacentClasses(PsiClass psiClass) {
-        return Utils.retrieveAllPsiTypes(psiClass, false).stream()
+        return Utils.retrieveAllPsiTypes(psiClass, false)
+                .stream()
                 .map(this::retrieveSources).filter(Objects::nonNull)
+                .filter(PsiClass::isPhysical) // No generated classes
+                .filter(pc -> !(pc instanceof PsiTypeParameter)) // No generic types like (T or ID)
                 .collect(Collectors.toSet());
     }
 
@@ -160,7 +164,7 @@ public class AvailableClassesContext implements PromptoContext {
     private PsiClass retrieveSources(PsiType type) {
         if (type instanceof PsiClassType classType) {
             var psiClass = classType.resolve();
-            if (psiClass == null || psiClass instanceof PsiTypeParameter) {
+            if (psiClass == null) {
                 return null;
             }
             var containingFile = psiClass.getContainingFile();
