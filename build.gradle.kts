@@ -24,8 +24,10 @@ intellij {
 
 dependencies {
     implementation("com.theokanning.openai-gpt3-java:service:0.12.0")
-    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
     implementation("org.projectlombok:lombok:1.18.26")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.assertj:assertj-core:3.6.1")
 }
 
 tasks {
