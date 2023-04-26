@@ -1,6 +1,7 @@
 package com.vcque.prompto;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
  * Wraps a chat response and extract useful information from it.
  */
 @Getter
+@ToString
 public class PromptoResponse {
 
 
