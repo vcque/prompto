@@ -9,7 +9,7 @@ import com.vcque.prompto.PromptoResponse;
 import com.vcque.prompto.Utils;
 import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.MethodOutput;
-import com.vcque.prompto.pipelines.PromptoContextDefinition;
+import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 
 import java.util.List;
@@ -20,12 +20,12 @@ public class PromptoRewriteMethodAction extends PromptoAction<PromptoResponse> {
     public PromptoPipeline<PromptoResponse> pipeline() {
         return PromptoPipeline.<PromptoResponse>builder()
                 .name("rewrite method")
-                .contexts(List.of(
-                        PromptoContextDefinition.ofOptional(new ProjectContext()),
-                        PromptoContextDefinition.of(new LanguageContext()),
-                        PromptoContextDefinition.of(new FileContentContext()),
-                        PromptoContextDefinition.of(new MethodNameContext()),
-                        PromptoContextDefinition.of(new AvailableClassesContext())
+                .retrievers(List.of(
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
+                        PromptoRetrieverDefinition.of(new LanguageRetriever()),
+                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.of(new MethodRetriever()),
+                        PromptoRetrieverDefinition.of(new AvailableClassesRetriever())
                 ))
                 .defaultInput("Add documentation")
                 .output(new MethodOutput())

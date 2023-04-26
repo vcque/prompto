@@ -50,13 +50,13 @@ public abstract class PromptoAction<T> extends PsiElementBaseIntentionAction imp
         }
 
         var scope = new PromptoPipeline.Scope(project, editor, element);
-        var contextChatMessages = pipeline().contextMessages(scope);
+        var contexts = pipeline().retrieveContexts(scope);
 
         ProgressManager.getInstance().run(new Task.Backgroundable(project, getText(), false) {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
                 try {
-                    PromptoManager.instance().executePipeline(pipeline(), contextChatMessages, userInput, scope);
+                    PromptoManager.instance().executePipeline(pipeline(), contexts, userInput, scope);
                 } catch (MissingTokenException e) {
                     var notification = new Notification(
                             "Prompto",

@@ -13,7 +13,7 @@ import com.intellij.util.IncorrectOperationException;
 import com.vcque.prompto.PromptoManager;
 import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.AnswerMeOutput;
-import com.vcque.prompto.pipelines.PromptoContextDefinition;
+import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,13 +30,13 @@ public class PromptoClipboardAction extends PromptoAction<String> {
     public PromptoPipeline<String> pipeline() {
         return PromptoPipeline.<String>builder()
                 .name("clipboard")
-                .contexts(List.of(
-                        PromptoContextDefinition.of(new LanguageContext()),
-                        PromptoContextDefinition.ofOptional(new ProjectContext()),
-                        PromptoContextDefinition.of(new FileContentContext()),
-                        PromptoContextDefinition.ofOptional(new SelectionContext()),
-                        PromptoContextDefinition.ofOptional(new AvailableClassesContext(
-                                new AvailableClassesContext.Config(
+                .retrievers(List.of(
+                        PromptoRetrieverDefinition.of(new LanguageRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
+                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever(
+                                new AvailableClassesRetriever.Config(
                                         1000,
                                         5
                                 )
@@ -69,7 +69,7 @@ public class PromptoClipboardAction extends PromptoAction<String> {
             return;
         }
 
-        var result = PromptoManager.instance().buildManualPrompt(pipeline(), pipeline.contextMessages(scope), userInput);
+        var result = PromptoManager.instance().buildManualPrompt(pipeline(), pipeline.retrieveContexts(scope), userInput);
         var transferable = new StringSelection(result);
         CopyPasteManager.getInstance().setContents(transferable);
 

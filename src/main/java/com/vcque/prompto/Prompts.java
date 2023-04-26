@@ -2,6 +2,7 @@ package com.vcque.prompto;
 
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
+import com.vcque.prompto.contexts.PromptoContext;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -20,72 +21,6 @@ public class Prompts {
                 """
                         You are Prompto, an intelliJ coding assistant helping the user completing its programming tasks.
                         """.trim()
-        );
-    }
-
-    public static ChatMessage editorContext(String file) {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                """
-                        This is the content of the user's editor:
-                        ```
-                         %s
-                        ```
-                        """.formatted(file).trim()
-        );
-    }
-
-    public static ChatMessage languageContext(String contextValue) {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                """
-                        This is the programming language used: `%s`
-                        """.formatted(contextValue)
-        );
-    }
-
-    public static ChatMessage methodNameContext(String methodName) {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                """
-                        This is the name of the method which has the user's focus: `%s`
-                        """.formatted(methodName)
-        );
-    }
-
-    public static ChatMessage selectionContext(String contextValue) {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                """
-                        This is the user's current selection:
-                        ```
-                        %s
-                        ```
-                        """.formatted(contextValue)
-        );
-    }
-
-    public static ChatMessage fileStructureContext(String contextValue) {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                """
-                        This is the project's file structure:
-                        ```
-                        %s
-                        ```
-                        """.formatted(contextValue)
-        );
-    }
-
-    public static ChatMessage typesContext(String contextValue) {
-        return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
-                """
-                        Here are additional type definitions:
-                        ```
-                        %s
-                        ```
-                        """.formatted(contextValue)
         );
     }
 
@@ -129,5 +64,39 @@ public class Prompts {
 
     public static ChatMessage userInput(String userInput) {
         return new ChatMessage(ChatMessageRole.USER.value(), userInput);
+    }
+
+    public static ChatMessage promptoContext(PromptoContext state) {
+        return new ChatMessage(
+                ChatMessageRole.SYSTEM.value(),
+                """
+                        `%s-%s`: This is %s
+                        ```
+                        %s
+                        ```
+                        """.formatted(
+                        state.getType().name(),
+                        state.getId(),
+                        state.getType().description,
+                        state.getValue()
+                )
+        );
+    }
+
+    public static ChatMessage promptoContextFormat() {
+        var exampleState = PromptoContext.builder()
+                .id("state_id")
+                .type(PromptoContext.Type.EXAMPLE)
+                .value("$state_value")
+                .build();
+        var exampleFormat = promptoContext(exampleState).getContent();
+
+        return new ChatMessage(
+                ChatMessageRole.SYSTEM.value(),
+                """
+                        In the next messages, you will receive context information useful to your task. It will have the following format:
+                        %s
+                        """.formatted(exampleFormat)
+        );
     }
 }

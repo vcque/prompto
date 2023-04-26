@@ -4,7 +4,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.ui.Messages;
 import com.vcque.prompto.contexts.*;
 import com.vcque.prompto.outputs.ShortAnswerOutput;
-import com.vcque.prompto.pipelines.PromptoContextDefinition;
+import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 
 import java.util.List;
@@ -15,12 +15,12 @@ public class PromptoAskAction extends PromptoAction<String> {
     public PromptoPipeline<String> pipeline() {
         return PromptoPipeline.<String>builder()
                 .name("ask")
-                .contexts(List.of(
-                        PromptoContextDefinition.ofOptional(new ProjectContext()),
-                        PromptoContextDefinition.of(new LanguageContext()),
-                        PromptoContextDefinition.of(new FileContentContext()),
-                        PromptoContextDefinition.ofOptional(new SelectionContext()),
-                        PromptoContextDefinition.ofOptional(new AvailableClassesContext())
+                .retrievers(List.of(
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
+                        PromptoRetrieverDefinition.of(new LanguageRetriever()),
+                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))
                 .defaultInput("What does this code do ?")
                 .output(new ShortAnswerOutput())

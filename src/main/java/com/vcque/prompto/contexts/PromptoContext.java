@@ -1,30 +1,45 @@
 package com.vcque.prompto.contexts;
 
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
-import com.theokanning.openai.completion.chat.ChatMessage;
-import org.jetbrains.annotations.NotNull;
+import com.vcque.prompto.Prompts;
+import com.vcque.prompto.Utils;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
+/**
+ * Represents a context state.
+ */
+@Getter
+@EqualsAndHashCode
+@Builder
+public class PromptoContext {
 
-public interface PromptoContext {
+    @Builder.Default
+    @EqualsAndHashCode.Include
+    private String id = "unique";
 
-    default boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        var value = retrieveContext(project, editor, element);
-        return value != null && !value.trim().isEmpty();
+    @EqualsAndHashCode.Include
+    private Type type;
+
+    private String value;
+
+    public int cost() {
+        return Utils.countTokens(Prompts.promptoContext(this).getContent());
     }
 
-    String retrieveContext(@NotNull Project project, Editor editor, @NotNull PsiElement element);
+    @RequiredArgsConstructor
+    public enum Type {
+        EDITOR("the user editor's content."),
+        CLASS("a source class of the project."),
+        SELECTION("the current user's selection."),
+        LANGUAGE("the user editor's language."),
+        SETTINGS("the global Prompto settings."),
+        FILE_STRUCTURE("the file structure of the project."),
+        METHOD("the method containing the user's caret."),
+        /** Used for setting up the prompto context. */
+        EXAMPLE("$description_of_the_type");
 
-    ChatMessage toMessage(String contextValue);
-
-    default Optional<ChatMessage> messageFromContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        var contextValue = retrieveContext(project, editor, element);
-        if (contextValue == null || contextValue.trim().isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(toMessage(contextValue));
-        }
+        final public String description;
     }
 }

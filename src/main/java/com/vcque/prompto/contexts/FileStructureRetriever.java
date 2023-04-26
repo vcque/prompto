@@ -7,8 +7,6 @@ import com.intellij.openapi.vcs.changes.ChangeListManager;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiManager;
-import com.theokanning.openai.completion.chat.ChatMessage;
-import com.vcque.prompto.Prompts;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileStructureContext implements PromptoContext {
+public class FileStructureRetriever implements PromptoUniqueRetriever {
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
@@ -24,13 +22,13 @@ public class FileStructureContext implements PromptoContext {
     }
 
     @Override
-    public String retrieveContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+    public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         return buildFileStructure(project);
     }
 
     @Override
-    public ChatMessage toMessage(String contextValue) {
-        return Prompts.fileStructureContext(contextValue);
+    public PromptoContext.Type type() {
+        return PromptoContext.Type.FILE_STRUCTURE;
     }
 
     public String buildFileStructure(Project project) {

@@ -3,22 +3,36 @@ package com.vcque.prompto.contexts;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.psi.*;
-import com.theokanning.openai.completion.chat.ChatMessage;
-import com.vcque.prompto.Prompts;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiClassType;
+import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementFactory;
+import com.intellij.psi.PsiImportStatement;
+import com.intellij.psi.PsiJavaFile;
+import com.intellij.psi.PsiModifier;
+import com.intellij.psi.PsiType;
+import com.intellij.psi.PsiTypeParameter;
 import com.vcque.prompto.Utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * Retrieve recursively the class definitions that the user can access from the editor.
  */
-public class AvailableClassesContext implements PromptoContext {
+public class AvailableClassesRetriever implements PromptoRetriever {
 
     @Data
     @AllArgsConstructor
@@ -39,11 +53,11 @@ public class AvailableClassesContext implements PromptoContext {
     /**
      * With default config.
      */
-    public AvailableClassesContext() {
+    public AvailableClassesRetriever() {
         this.config = new Config();
     }
 
-    public AvailableClassesContext(Config config) {
+    public AvailableClassesRetriever(Config config) {
         this.config = config;
     }
 
@@ -63,7 +77,7 @@ public class AvailableClassesContext implements PromptoContext {
      * @return the context of the current method as a string containing the text of all adjacent classes
      */
     @Override
-    public String retrieveContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+    public Set<PromptoContext> retrieveContexts(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var editorPsiClass = Utils.findParentOfType(element, PsiClass.class);
 
         // will contain the final classes to add to context
@@ -104,8 +118,14 @@ public class AvailableClassesContext implements PromptoContext {
 
         return results.stream()
                 .sorted(Comparator.comparing(PsiClassResult::depth))
-                .map(PsiClassResult::text)
-                .collect(Collectors.joining("\n\n"));
+                .map(result ->
+                        PromptoContext.builder()
+                                .id(result.psiClass().getName())
+                                .value(result.text())
+                                .type(PromptoContext.Type.CLASS)
+                                .build()
+                )
+                .collect(Collectors.toSet());
     }
 
     private Collection<? extends PsiClass> retrieveAllImports(Editor editor) {

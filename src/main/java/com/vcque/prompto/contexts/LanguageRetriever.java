@@ -1,14 +1,15 @@
 package com.vcque.prompto.contexts;
 
+import com.intellij.lang.Language;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiUtilBase;
-import com.theokanning.openai.completion.chat.ChatMessage;
-import com.vcque.prompto.Prompts;
 import org.jetbrains.annotations.NotNull;
 
-public class LanguageContext implements PromptoContext {
+import java.util.Optional;
+
+public class LanguageRetriever implements PromptoUniqueRetriever {
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
@@ -16,13 +17,16 @@ public class LanguageContext implements PromptoContext {
     }
 
     @Override
-    public String retrieveContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+    public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var psiFile = PsiUtilBase.getPsiFileInEditor(editor, project);
-        return psiFile == null ? null : psiFile.getLanguage().getDisplayName();
+        return Optional.ofNullable(psiFile)
+                .map(PsiElement::getLanguage)
+                .map(Language::getDisplayName)
+                .orElse(null);
     }
 
     @Override
-    public ChatMessage toMessage(String contextValue) {
-        return Prompts.languageContext(contextValue);
+    public PromptoContext.Type type() {
+        return PromptoContext.Type.LANGUAGE;
     }
 }

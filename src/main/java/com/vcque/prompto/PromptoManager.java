@@ -3,6 +3,7 @@ package com.vcque.prompto;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
+import com.vcque.prompto.contexts.PromptoContext;
 import com.vcque.prompto.exceptions.MissingTokenException;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.settings.PromptoSettingsState;
@@ -38,12 +39,15 @@ public class PromptoManager {
         }
     }
 
-    public <T> void executePipeline(PromptoPipeline<T> pipeline, List<ChatMessage> contextMessages, String userInput, PromptoPipeline.Scope scope) {
+    public <T> void executePipeline(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, String userInput, PromptoPipeline.Scope scope) {
         updateToken();
 
         var chatMessages = new ArrayList<ChatMessage>();
         chatMessages.add(Prompts.codingAssistant());
-        chatMessages.addAll(contextMessages);
+        chatMessages.add(Prompts.promptoContextFormat());
+        chatMessages.addAll(
+                contexts.stream().map(Prompts::promptoContext).toList()
+        );
         chatMessages.add(pipeline.getOutput().chatMessage());
         chatMessages.add(Prompts.userInput(userInput));
 
@@ -64,10 +68,12 @@ public class PromptoManager {
         pipeline.getExecution().accept(extractedResult, scope);
     }
 
-    public <T> String buildManualPrompt(PromptoPipeline<T> pipeline, List<ChatMessage> contextMessages, String userInput) {
+    public <T> String buildManualPrompt(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, String userInput) {
         var chatMessages = new ArrayList<ChatMessage>();
         chatMessages.add(Prompts.codingAssistant());
-        chatMessages.addAll(contextMessages);
+        chatMessages.addAll(
+                contexts.stream().map(Prompts::promptoContext).toList()
+        );
         chatMessages.add(pipeline.getOutput().chatMessage());
         chatMessages.add(Prompts.userInput(userInput));
 
