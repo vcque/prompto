@@ -120,6 +120,7 @@ public class AvailableClassesContext implements PromptoContext {
                     .filter(Objects::nonNull)
                     .filter(PsiClass.class::isInstance)
                     .map(PsiClass.class::cast)
+                    .filter(this::isInSources)
                     .toList();
         }
         return List.of();
@@ -183,20 +184,17 @@ public class AvailableClassesContext implements PromptoContext {
     private PsiClass retrieveSources(PsiType type) {
         if (type instanceof PsiClassType classType) {
             var psiClass = classType.resolve();
-            if (psiClass == null) {
-                return null;
+            if (psiClass != null && isInSources(psiClass)) {
+                return psiClass;
             }
-            var containingFile = psiClass.getContainingFile();
-            var projectFileIndex = ProjectFileIndex.getInstance(psiClass.getProject());
-            var virtualFile = containingFile.getVirtualFile();
-            return projectFileIndex.isInSource(virtualFile) ? psiClass : null;
-        } else {
-            return null;
         }
+        return null;
     }
 
-    @Override
-    public ChatMessage toMessage(String contextValue) {
-        return Prompts.typesContext(contextValue);
+    private boolean isInSources(PsiClass psiClass) {
+        var containingFile = psiClass.getContainingFile();
+        var projectFileIndex = ProjectFileIndex.getInstance(psiClass.getProject());
+        var virtualFile = containingFile.getVirtualFile();
+        return projectFileIndex.isInSource(virtualFile);
     }
 }
