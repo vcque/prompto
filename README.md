@@ -1,6 +1,6 @@
 # Prompto - ChatGPT Coding Assistant
 
-A coding assistant plugin based on ChatGPT.
+An IntelliJ plugin based on ChatGPT.
 
 ## Features
 
