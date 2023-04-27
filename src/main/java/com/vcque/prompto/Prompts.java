@@ -34,6 +34,16 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage insertOutput() {
+        return new ChatMessage(
+                ChatMessageRole.SYSTEM.value(),
+                """
+                        Your task is insert new code based on the user's next input.
+                        The first code block you provide will be inserted in the user's editor.
+                        """.trim()
+        );
+    }
+
     public static ChatMessage shortAnswerOutput() {
         return new ChatMessage("system",
                 """

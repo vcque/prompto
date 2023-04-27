@@ -40,6 +40,6 @@ public class PromptoContext {
         /** Used for setting up the prompto context. */
         EXAMPLE("$description_of_the_type");
 
-        final public String description;
+        public final String description;
     }
 }
