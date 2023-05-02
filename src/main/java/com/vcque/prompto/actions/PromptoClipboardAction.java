@@ -33,7 +33,11 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                 .retrievers(List.of(
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
-                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.of(new EditorContentRetriever(
+                                new EditorContentRetriever.Config(
+                                        1000
+                                )
+                        )),
                         PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever(
                                 new AvailableClassesRetriever.Config(
@@ -42,7 +46,7 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                                 )
                         ))
                 ))
-                .defaultInput("What does this code do ?")
+                .defaultInput("")
                 .output(new AnswerMeOutput())
                 .execution((result, scope) -> {
                     ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result, "Explanation"));

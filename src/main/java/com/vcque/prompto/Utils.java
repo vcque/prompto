@@ -169,4 +169,10 @@ public class Utils {
     public static <T extends PsiElement> T findParentOfType(@NotNull PsiElement element, Class<T> psi) {
         return psi.isInstance(psi) ? (T) element : PsiTreeUtil.getParentOfType(element, psi);
     }
+
+    public static String cleanWhitespaces(String text) {
+        return text
+                .replaceAll("\\s+\n", "\n") // remove trailing spaces
+                .replaceAll("\n{2,}", "\n"); // remove multi-newlines
+    }
 }

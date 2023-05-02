@@ -7,13 +7,13 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiImportStatement;
 import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiModifier;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.PsiTypeParameter;
 import com.vcque.prompto.Utils;
+import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -154,33 +154,26 @@ public class AvailableClassesRetriever implements PromptoRetriever {
         if (text == null || text.isBlank()) {
             return Optional.empty();
         }
-        text = text
-                .replaceAll("\\s+\n", "\n") // remove trailing spaces
-                .replaceAll("\n{2,}", "\n"); // remove multi-newlines
+        text = Utils.cleanWhitespaces(text);
         var cost = Utils.countTokens(text);
         return Optional.of(new PsiClassResult(psiClass, depth, text, cost));
     }
 
     private PsiClass shrink(PsiClass psiClass) {
-        var codeBlock = PsiElementFactory
-                .getInstance(psiClass.getProject())
-                .createCodeBlockFromText("{ /* ... */ }", null);
-
         var clonedPsiClass = (PsiClass) psiClass.copy();
         // Who cares about private methods implementation ? Every abstraction is perfect.
         for (var method : clonedPsiClass.getMethods()) {
             if (!method.getModifierList().hasModifierProperty(PsiModifier.PUBLIC)) {
-                var body = method.getBody();
-                if (body != null) {
-                    body.replace(codeBlock);
-                }
+                PromptoJavaUtils.elideBody(method);
             }
         }
 
         // Inner classes can be matched by the recursive search, no need to print them twice
         for (var innerClass : clonedPsiClass.getAllInnerClasses()) {
             try {
-                innerClass.delete();
+                if (innerClass.isPhysical()) {
+                    innerClass.delete();
+                }
             } catch (Exception e) {
                 // do nothing
             }
