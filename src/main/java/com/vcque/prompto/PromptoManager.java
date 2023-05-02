@@ -7,10 +7,12 @@ import com.vcque.prompto.contexts.PromptoContext;
 import com.vcque.prompto.exceptions.MissingTokenException;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.settings.PromptoSettingsState;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class PromptoManager {
@@ -41,12 +43,16 @@ public class PromptoManager {
 
     public <T> void executePipeline(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, String userInput, PromptoPipeline.Scope scope) {
         updateToken();
+        var maxToken = 3500; // To configure, this is ~ the number of token allowed for the chatGPT API (need also room for the response)
 
         var chatMessages = new ArrayList<ChatMessage>();
         chatMessages.add(Prompts.codingAssistant());
         chatMessages.add(Prompts.promptoContextFormat());
         chatMessages.addAll(
-                contexts.stream().map(Prompts::promptoContext).toList()
+                contexts.stream()
+                        .takeWhile(new MaxTokenPredicate(maxToken))
+                        .map(Prompts::promptoContext)
+                        .toList()
         );
         chatMessages.add(pipeline.getOutput().chatMessage());
         chatMessages.add(Prompts.userInput(userInput));
@@ -69,10 +75,17 @@ public class PromptoManager {
     }
 
     public <T> String buildManualPrompt(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, String userInput) {
+        var maxToken = 2000; // To configure, this is ~ the number of token allowed in the chatGPT webapp
+
         var chatMessages = new ArrayList<ChatMessage>();
         chatMessages.add(Prompts.codingAssistant());
+
+
         chatMessages.addAll(
-                contexts.stream().map(Prompts::promptoContext).toList()
+                contexts.stream()
+                        .takeWhile(new MaxTokenPredicate(maxToken))
+                        .map(Prompts::promptoContext)
+                        .toList()
         );
         chatMessages.add(pipeline.getOutput().chatMessage());
         chatMessages.add(Prompts.userInput(userInput));
@@ -80,5 +93,19 @@ public class PromptoManager {
         return chatMessages.stream()
                 .map(ChatMessage::getContent)
                 .collect(Collectors.joining("\n"));
+    }
+
+    @RequiredArgsConstructor
+    private static class MaxTokenPredicate implements Predicate<PromptoContext> {
+
+        private final int maxToken;
+        private int currentToken = 0;
+
+        @Override
+        public boolean test(PromptoContext context) {
+            // Stateful predicate FTW
+            currentToken += context.cost();
+            return currentToken < maxToken;
+        }
     }
 }
