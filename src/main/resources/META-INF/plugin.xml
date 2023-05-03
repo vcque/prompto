@@ -14,24 +14,36 @@
       <p>
         To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with the following Prompto actions:
         <ul>
-        <li>prompto <strong>ask</strong>: asks a simple question about the visualized code.</li>
-        <li>prompto <strong>rewrite method</strong>: rewrites the current method based on your input (e.g., add documentation or fix this issue).</li>
         <li>prompto <strong>clipboard</strong>: captures your editor's state, builds a Prompto prompt, and saves it to your clipboard so that you can use it in the ChatGPT web app.</li>
+        <li>prompto <strong>rewrite method</strong>: rewrites the current method based on your input.</li>
+        <li>prompto <strong>ask</strong>: asks a simple question about your codebase.</li>
         </ul>
       </p>
       <p>
         Here are some tips and use-cases:
         <ul>
+        <li>Prompto has been mainly tested on a java codebase. You can try it with other languages, but it will fare far worse.</li>
         <li>If you don't have an API key, you can still use the Prompto clipboard and paste it in the ChatGPT web app.</li>
         <li>Prompto answers often lack accuracy, and you will have to proof-check them. However, it still provides an amazing starting point to iterate upon.</li>
-        <li>Prompto is best used for simple but lengthy tasks such as: writing documentation, unit tests, mock datasets, converter methods, etc.</li>
-        <li>Prompto has more knowledge about well-known cases and technologies than niche ones.</li>
-        <li>Prompto's attention span is limited and will provide better answers for short or medium files and might outright fail for large ones.</li>
+        <li>Prompto is best used for simple but lengthy tasks such as: writing documentation, unit tests, mock datasets, converter methods, etc...</li>
         </ul>
       </p>
 
       <p>Feedback is welcome at <a href="https://github.com/vcque/prompto">https://github.com/vcque/prompto</a>. Have fun!</p>
     ]]></description>
+
+    <change-notes><![CDATA[
+        <h2>New Features</h2>
+        <ul>
+          <li>Prompto clipboard do not need additional user input</li>
+          <li>Add imported classes to context information</li>
+          <li>Compacts the editor content state in order to save tokens</li>
+        </ul>
+        <h2>Bug Fixes</h2>
+        <ul>
+          <li>Try to stay under the ChatGPT token limit in case of big files</li>
+        </ul>
+    ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
