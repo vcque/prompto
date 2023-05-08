@@ -66,7 +66,7 @@ public class Prompts {
         return new ChatMessage(
                 ChatMessageRole.USER.value(),
                 """
-                        I will instruct you a task about the provided file.
+                        I will instruct you a task about the provided context information.
                         Do answer truthfully. If you don't know how to do the task, say so and provide the reasons why.
                         """
         );
