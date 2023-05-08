@@ -32,7 +32,8 @@ public class PromptoSettingsConfigurable implements Configurable {
     public boolean isModified() {
         var settings = PromptoSettingsState.getInstance();
         return !settingsComponent.getApiToken().equals(settings.apiToken)
-                || !settingsComponent.getProjectContext().equals(settings.projectContext);
+                || !settingsComponent.getProjectContext().equals(settings.projectContext)
+                || !settingsComponent.getlanguageModel().equals(settings.languageModel);
     }
 
     @Override
@@ -40,12 +41,14 @@ public class PromptoSettingsConfigurable implements Configurable {
         var settings = PromptoSettingsState.getInstance();
         settings.apiToken = settingsComponent.getApiToken();
         settings.projectContext = settingsComponent.getProjectContext();
+        settings.languageModel = settingsComponent.getlanguageModel();
     }
 
     @Override
     public void reset() {
         settingsComponent.setApiToken(PromptoSettingsState.getInstance().apiToken);
         settingsComponent.setProjectContext(PromptoSettingsState.getInstance().projectContext);
+        settingsComponent.setLanguageModel(PromptoSettingsState.getInstance().languageModel);
     }
 
     @Override

@@ -19,8 +19,6 @@ public class PromptoManager {
 
     private static final PromptoManager INSTANCE = new PromptoManager();
 
-    private static final String LLM_MODEL = "gpt-3.5-turbo";
-
     private static final double TEMPERATURE = 0.3;
 
     public static PromptoManager instance() {
@@ -61,7 +59,7 @@ public class PromptoManager {
         var result = openAI.createChatCompletion(
                 ChatCompletionRequest.builder()
                         .temperature(TEMPERATURE)
-                        .model(LLM_MODEL)
+                        .model(PromptoSettingsState.getInstance().languageModel)
                         .messages(chatMessages)
                         .stream(false)
                         .build()

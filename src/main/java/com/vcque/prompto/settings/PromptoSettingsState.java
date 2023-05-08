@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public final class PromptoSettingsState implements PersistentStateComponent<PromptoSettingsState> {
 
     public String apiToken = "";
+    public String languageModel = "gpt-3.5-turbo";
     public String projectContext = "The user is an experienced developer familiar with the code base.";
 
     public static PromptoSettingsState getInstance() {
