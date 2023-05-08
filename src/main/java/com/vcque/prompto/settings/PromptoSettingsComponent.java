@@ -15,7 +15,11 @@ public class PromptoSettingsComponent {
     private final JBTextField apiToken = new JBTextField();
 
     private final ComboBox<String> languageModel = new ComboBox<>();
-    private final JBTextArea projectContext = new JBTextArea();
+    private final JBTextArea projectContext = new JBTextArea(
+            "Additional information provided to Prompto.",
+            4,
+            80
+    );
 
     public PromptoSettingsComponent() {
         var languageModelModel = new DefaultComboBoxModel<String>();
@@ -25,7 +29,9 @@ public class PromptoSettingsComponent {
 
         mainPanel = FormBuilder.createFormBuilder()
                 .addLabeledComponent(new JBLabel("Enter openAI token: "), apiToken, 1, false)
+                .addVerticalGap(8)
                 .addLabeledComponent(new JBLabel("GPT version: "), languageModel, 1, false)
+                .addVerticalGap(8)
                 .addLabeledComponent(new JBLabel("Project context: "), projectContext, 1, false)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
