@@ -14,12 +14,12 @@ import com.vcque.prompto.pipelines.PromptoPipeline;
 
 import java.util.List;
 
-public class PromptoRewriteMethodAction extends PromptoAction<PromptoResponse> {
+public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
 
     @Override
     public PromptoPipeline<PromptoResponse> pipeline() {
         return PromptoPipeline.<PromptoResponse>builder()
-                .name("rewrite method")
+                .name("implement")
                 .retrievers(List.of(
                         PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
@@ -27,7 +27,7 @@ public class PromptoRewriteMethodAction extends PromptoAction<PromptoResponse> {
                         PromptoRetrieverDefinition.of(new MethodRetriever()),
                         PromptoRetrieverDefinition.of(new AvailableClassesRetriever())
                 ))
-                .defaultInput("Add documentation")
+                .defaultInput("Implement this method to the best of your abilities")
                 .output(new MethodOutput())
                 .execution((result, scope) -> {
                     var project = scope.project();

@@ -9,7 +9,7 @@ This plugin provides actions that capture your current editor's state to context
 To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with the following Prompto actions:
 
 - `prompto ask`: asks a simple question about the visualized code.
-- `prompto rewrite method`: rewrites the current method based on your input (e.g., add documentation or fix this issue).
+- `prompto implement`: (re-)implements the selected method based on your input (e.g., add documentation or fix this issue).
 - `prompto clipboard`: captures your editor's state, builds a Prompto prompt, and saves it to your clipboard so that you can use it in the ChatGPT web app.
 
 ## Tips and Use-cases

@@ -15,7 +15,7 @@
         To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with the following Prompto actions:
         <ul>
         <li>prompto <strong>clipboard</strong>: captures your editor's state, builds a Prompto prompt, and saves it to your clipboard so that you can use it in the ChatGPT web app.</li>
-        <li>prompto <strong>rewrite method</strong>: rewrites the current method based on your input.</li>
+        <li>prompto <strong>implement</strong>: (re-)implements the selected method based on your input.</li>
         <li>prompto <strong>ask</strong>: asks a simple question about your codebase.</li>
         </ul>
       </p>
@@ -60,7 +60,7 @@
             <category>Prompto</category>
         </intentionAction>
         <intentionAction>
-            <className>com.vcque.prompto.actions.PromptoRewriteMethodAction</className>
+            <className>com.vcque.prompto.actions.PromptoImplementAction</className>
             <category>Prompto</category>
         </intentionAction>
         <intentionAction>
