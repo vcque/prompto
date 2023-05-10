@@ -36,7 +36,7 @@ public class PromptoSqlAction extends PromptoAction<PromptoResponse> {
                     } else {
                         WriteCommandAction.runWriteCommandAction(project, () -> {
                             var document = scope.editor().getDocument();
-                            document.insertString(document.getTextLength(), editorBlock.get().code());
+                            document.insertString(document.getTextLength(), "\n" + editorBlock.get().code());
                         });
                     }
                 })
