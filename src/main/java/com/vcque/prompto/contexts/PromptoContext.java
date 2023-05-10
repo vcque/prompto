@@ -30,13 +30,14 @@ public class PromptoContext {
 
     @RequiredArgsConstructor
     public enum Type {
-        EDITOR("the user editor's content."),
-        CLASS("a source class of the project."),
-        SELECTION("the current user's selection."),
-        LANGUAGE("the user editor's language."),
-        SETTINGS("the global Prompto settings."),
-        FILE_STRUCTURE("the file structure of the project."),
-        METHOD("the method containing the user's caret."),
+        EDITOR("the user editor's content"),
+        CLASS("a source class of the project"),
+        SELECTION("the current user's selection"),
+        LANGUAGE("the user editor's language"),
+        SETTINGS("the global Prompto settings"),
+        FILE_STRUCTURE("the file structure of the project"),
+        DATABASE("the database schema used by the editor"),
+        METHOD("the method containing the user's caret"),
         /** Used for setting up the prompto context. */
         EXAMPLE("$description_of_the_type");
 

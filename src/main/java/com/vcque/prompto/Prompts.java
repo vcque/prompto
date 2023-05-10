@@ -72,6 +72,14 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage sqlOutput() {
+        return new ChatMessage(ChatMessageRole.SYSTEM.value(), """
+                Your task is to provide a high-quality SQL script based on the user's next input.
+                Ensure that the SQL code you provide is efficient, well-structured, and adheres to best practices.
+                Always return the SQL script between triple back quotes.
+                """.trim());
+    }
+
     public static ChatMessage userInput(String userInput) {
         return new ChatMessage(ChatMessageRole.USER.value(), userInput);
     }
@@ -109,4 +117,5 @@ public class Prompts {
                         """.formatted(exampleFormat)
         );
     }
+
 }

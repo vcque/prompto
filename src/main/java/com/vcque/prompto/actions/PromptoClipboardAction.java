@@ -44,7 +44,8 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                                         1000,
                                         5
                                 )
-                        ))
+                        )),
+                        PromptoRetrieverDefinition.ofOptional(new SqlSchemaRetriever())
                 ))
                 .defaultInput("")
                 .output(new AnswerMeOutput())

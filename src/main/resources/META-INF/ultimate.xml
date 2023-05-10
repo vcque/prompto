@@ -1,0 +1,8 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <intentionAction>
+            <className>com.vcque.prompto.actions.PromptoSqlAction</className>
+            <category>Prompto</category>
+        </intentionAction>
+    </extensions>
+</idea-plugin>

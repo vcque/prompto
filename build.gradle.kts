@@ -17,9 +17,13 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
     version.set("2022.2.4")
-    type.set("IC") // Target IDE Platform
+    type.set("IU") // Target IDE Platform
 
-    plugins.set(listOf("com.intellij.java"))
+    plugins.set(listOf(
+            "com.intellij.java",
+            "JavaScript",
+            "com.intellij.database",
+            ))
 }
 
 dependencies {
