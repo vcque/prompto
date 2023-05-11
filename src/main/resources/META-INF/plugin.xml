@@ -4,31 +4,48 @@
     <vendor email="vocquet.ocquet@gmail.com" url="https://github.com/vcque">Vincent Ocquet</vendor>
 
     <description><![CDATA[
-      <p>A coding assistant based on ChatGPT.</p>
+      <h1>A coding assistant based on ChatGPT.</h1>
       <br>
       <p>
-        This plugin provides actions that capture your current editor's state to contextualize the prompt you send to ChatGPT. <br>
-        Each action lists the context sent so that you can <strong>be mindful of potential issues with private or sensitive data</strong>.
+        The core concept of Prompto is to capture your IDE state in order to contextualize queries you send to ChatGPT. <br>
+        This allows the generated responses to be fine-tuned to your use-case, building on the code present in your project. <br>
+        Prompto has been mainly used and tested on Java projects but can also work on other languages in a limited way.
       </p>
       <br>
       <p>
-        To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with the following Prompto actions:
-        <ul>
-        <li>prompto <strong>clipboard</strong>: captures your editor's state, builds a Prompto prompt, and saves it to your clipboard so that you can use it in the ChatGPT web app.</li>
-        <li>prompto <strong>implement</strong>: (re-)implements the selected method based on your input.</li>
-        <li>prompto <strong>ask</strong>: asks a simple question about your codebase.</li>
-        </ul>
+        <strong>be mindful of potential issues with private or sensitive data</strong>. Each action lists what type of data it sends to the LLM.
       </p>
+      <br>
       <p>
-        Here are some tips and use-cases:
-        <ul>
-        <li>Prompto has been mainly tested on a java codebase. You can try it with other languages, but it will fare far worse.</li>
-        <li>If you don't have an API key, you can still use the Prompto clipboard and paste it in the ChatGPT web app.</li>
-        <li>Prompto answers often lack accuracy, and you will have to proof-check them. However, it still provides an amazing starting point to iterate upon.</li>
-        <li>Prompto is best used for simple but lengthy tasks such as: writing documentation, unit tests, mock datasets, converter methods, etc...</li>
-        </ul>
+        To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with prompto actions.
       </p>
-
+      <br>
+      <h2>Prompto clipboard</h2>
+      <p>
+        Use this action to save your IDE state to you clipboard so that you can use it on the ChatGPT webapp. <br>
+        It also allows you to inspect what that is being captured by Prompto. <br>
+        <strong>This action does not need an API key.</strong>
+      </p>
+      <h2>Prompto implement</h2>
+      <p>
+        Use this action on an existing method to implement or modify it. <br>
+        Prompto will use the relevant type definitions of your project to build an optimal implementation. <br>
+        This is best used on code like converter methods, test cases or usage of external (and well-known) libraries. <br>
+        This is a Java only feature.
+      </p>
+      <h2>Prompto ask</h2>
+      <p>
+        Use this action to ask a quick question about the code. <br>
+        This is more for flavor but can be sometimes useful. <br>
+        You can also ask Prompto how it's going, I guess it's a feature ¯\_(ツ)_/¯
+      </p>
+      <h2>Prompto sql - Intellij Ultimate only</h2>
+      <p>
+        In a database console, ask Prompto to generate a SQL script. <br>
+        Prompto will have access to your database schema to generate a relevant SQL query. <br>
+        Note that this feature currently only works for small databases. (~40 tables max)
+      </p>
+      <br>
       <p>Feedback is welcome at <a href="https://github.com/vcque/prompto">https://github.com/vcque/prompto</a>. Have fun!</p>
     ]]></description>
 
