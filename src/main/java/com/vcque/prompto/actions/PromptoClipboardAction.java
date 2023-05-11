@@ -32,12 +32,12 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                 .name("clipboard")
                 .retrievers(List.of(
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever(
                                 new EditorContentRetriever.Config(
                                         1000
                                 )
                         )),
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever(
                                 new AvailableClassesRetriever.Config(
