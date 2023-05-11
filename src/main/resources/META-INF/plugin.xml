@@ -35,13 +35,13 @@
     <change-notes><![CDATA[
         <h2>New Features</h2>
         <ul>
-          <li>Prompto clipboard do not need additional user input</li>
-          <li>Add imported classes to context information</li>
-          <li>Compacts the editor content state in order to save tokens</li>
+          <li>Allow to choose between gpt-3.5-turbo and gpt-4 models</li>
+          <li>Rename `rewrite method` action to `implement`</li>
+          <li>Add an SQL script action</li>
         </ul>
         <h2>Bug Fixes</h2>
         <ul>
-          <li>Try to stay under the ChatGPT token limit in case of big files</li>
+          <li>Better prompt for the implement action</li>
         </ul>
     ]]></change-notes>
 
