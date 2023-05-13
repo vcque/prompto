@@ -1,4 +1,4 @@
-package com.vcque.prompto.contexts;
+package com.vcque.prompto.ultimate.contexts;
 
 import com.intellij.database.model.DasDataSource;
 import com.intellij.database.model.DasForeignKey;
@@ -11,6 +11,8 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
+import com.vcque.prompto.contexts.PromptoContext;
+import com.vcque.prompto.contexts.PromptoUniqueRetriever;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;

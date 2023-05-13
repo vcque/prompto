@@ -20,8 +20,7 @@ public class PromptoAskAction extends PromptoAction<String> {
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SqlSchemaRetriever())
+                        PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))
                 .defaultInput("What does this code do ?")
                 .output(new ShortAnswerOutput())
