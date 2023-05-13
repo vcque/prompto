@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.vcque"
-version = "0.6.0"
+version = "0.6.1"
 
 repositories {
     mavenCentral()
@@ -44,8 +44,16 @@ tasks {
         kotlinOptions.jvmTarget = "17"
     }
 
+    runPluginVerifier {
+      ideVersions.set(listOf(
+              "IIC-2022.2",
+              "IIU-2022.2",
+              "AS-2022-2"
+      ))
+    }
+
     patchPluginXml {
-        sinceBuild.set("222")
+        sinceBuild.set("223")
         untilBuild.set("232.*")
     }
 
