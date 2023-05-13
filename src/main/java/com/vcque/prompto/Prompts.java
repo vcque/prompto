@@ -31,7 +31,7 @@ public class Prompts {
                         Your task is to implement or rewrite the context method based on the user's next input.
                         If the user does not provide specific directives and the method is not implemented, do an informed guess and implement the method based on this guess.
                         Ensure that the code you provide is efficient, well-structured, and adheres to best practices.
-                        Always answer with one ore multiple methods between triple back quotes.
+                        Always answer with one or multiple methods between triple back quotes.
                         """.trim()
         );
     }
