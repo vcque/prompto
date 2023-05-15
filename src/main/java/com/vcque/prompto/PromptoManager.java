@@ -69,7 +69,7 @@ public class PromptoManager {
         var response = result.getChoices().get(0).getMessage().getContent();
         var extractedResult = pipeline.getOutput().extractOutput(response);
         // Execute the action
-        pipeline.getExecution().accept(extractedResult, scope);
+        pipeline.getExecution().execute(extractedResult, scope, contexts);
     }
 
     public <T> String buildManualPrompt(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, String userInput) {

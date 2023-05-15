@@ -12,6 +12,7 @@ import com.vcque.prompto.contexts.AvailableClassesRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
 import com.vcque.prompto.contexts.MethodRetriever;
+import com.vcque.prompto.contexts.PromptoContext;
 import com.vcque.prompto.contexts.SettingsRetriever;
 import com.vcque.prompto.outputs.MethodOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -38,7 +39,7 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
                 .build();
     }
 
-    private void apply(PromptoResponse result, PromptoPipeline.Scope scope) {
+    private void apply(PromptoResponse result, PromptoPipeline.Scope scope, List<PromptoContext> contexts) {
         var project = scope.project();
         if (result.getEditorBlocks().isEmpty()) {
             ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result.getRaw(), "Prompto"));

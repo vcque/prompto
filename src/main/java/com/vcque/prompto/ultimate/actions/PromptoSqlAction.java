@@ -29,7 +29,7 @@ public class PromptoSqlAction extends PromptoAction<PromptoResponse> {
                 ))
                 .defaultInput("")
                 .output(new SqlOutput())
-                .execution((result, scope) -> {
+                .execution((result, scope, contexts) -> {
                     var project = scope.project();
                     var editorBlock = result.firstBlock();
                     if (editorBlock.isEmpty()) {

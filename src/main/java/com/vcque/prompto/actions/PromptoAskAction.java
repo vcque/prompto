@@ -24,7 +24,7 @@ public class PromptoAskAction extends PromptoAction<String> {
                 ))
                 .defaultInput("What does this code do ?")
                 .output(new ShortAnswerOutput())
-                .execution((result, scope) -> {
+                .execution((result, scope, contexts) -> {
                     ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result, "Ask Prompto"));
                 })
                 .build();

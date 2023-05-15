@@ -48,7 +48,7 @@ public class PromptoClipboardAction extends PromptoAction<String> {
                 ))
                 .defaultInput("")
                 .output(new AnswerMeOutput())
-                .execution((result, scope) -> {
+                .execution((result, scope, contexts) -> {
                     ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result, "Explanation"));
                 })
                 .build();

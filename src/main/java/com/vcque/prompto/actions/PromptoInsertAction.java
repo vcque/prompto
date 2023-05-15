@@ -43,7 +43,7 @@ public class PromptoInsertAction extends PromptoAction<PromptoResponse> {
                 ))
                 .defaultInput("")
                 .output(new InsertOutput())
-                .execution((result, scope) -> {
+                .execution((result, scope, contexts) -> {
                     var project = scope.project();
                     var editorBlock = result.firstBlock();
                     if (editorBlock.isEmpty()) {

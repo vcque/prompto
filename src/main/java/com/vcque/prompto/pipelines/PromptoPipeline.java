@@ -28,7 +28,7 @@ public class PromptoPipeline<T> {
     private String defaultInput;
     private List<PromptoRetrieverDefinition> retrievers;
     private PromptoOutput<T> output;
-    private BiConsumer<T, Scope> execution;
+    private PromptoExecution<T> execution;
 
     /**
      * Represents the scope of a pipeline execution, containing project, editor, and PSI element information.
