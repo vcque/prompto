@@ -26,39 +26,39 @@ public class Prompts {
 
     public static ChatMessage rewriteMethodOutput() {
         return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
+                ChatMessageRole.USER.value(),
                 """
-                        Your task is to implement or rewrite the context method based on the user's next input.
+                        Your task is to implement or rewrite the context method based on the my next input.
                         If the user does not provide specific directives and the method is not implemented, do an informed guess and implement the method based on this guess.
                         Ensure that the code you provide is efficient, well-structured, and adheres to best practices.
-                        Always answer with one or multiple methods between triple back quotes.
+                        Always answer with one or multiple methods between triple back quotes in the queried language.
                         """.trim()
         );
     }
 
     public static ChatMessage insertOutput() {
         return new ChatMessage(
-                ChatMessageRole.SYSTEM.value(),
+                ChatMessageRole.USER.value(),
                 """
-                        Your task is insert new code based on the user's next input.
+                        Your task is insert new code based on my next input.
                         The first code block you provide will be inserted in the user's editor.
                         """.trim()
         );
     }
 
     public static ChatMessage shortAnswerOutput() {
-        return new ChatMessage("system",
+        return new ChatMessage(ChatMessageRole.USER.value(),
                 """
-                        Your task is to answer the user's next question based on the provided context.
+                        Your task is to answer my next question based on the provided context.
                         Answer with only the most relevant information and with the least words possible.
                         """
         );
     }
 
     public static ChatMessage addToExistingOutput() {
-        return new ChatMessage(ChatMessageRole.SYSTEM.value(),
+        return new ChatMessage(ChatMessageRole.USER.value(),
                 """
-                        Your task is to generate content based on the user's next input.
+                        Your task is to generate content based on the my next input.
                         Respond with a code snippet that will be inserted in the current editor.
                         """
         );
@@ -75,8 +75,8 @@ public class Prompts {
     }
 
     public static ChatMessage sqlOutput() {
-        return new ChatMessage(ChatMessageRole.SYSTEM.value(), """
-                Your task is to provide a high-quality SQL script based on the user's next input.
+        return new ChatMessage(ChatMessageRole.USER.value(), """
+                Your task is to provide a high-quality SQL script based on my next input.
                 Ensure that the SQL code you provide is efficient, well-structured, and adheres to best practices.
                 Always return the SQL script between triple back quotes.
                 """.trim());
