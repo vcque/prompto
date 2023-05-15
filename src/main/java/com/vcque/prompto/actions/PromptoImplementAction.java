@@ -3,7 +3,6 @@ package com.vcque.prompto.actions;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 import com.vcque.prompto.PromptoResponse;
@@ -17,6 +16,7 @@ import com.vcque.prompto.contexts.SettingsRetriever;
 import com.vcque.prompto.outputs.MethodOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
+import com.vcque.prompto.ui.PromptoAnswerDialog;
 
 import java.util.List;
 
@@ -41,16 +41,12 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
 
     private void apply(PromptoResponse result, PromptoPipeline.Scope scope, List<PromptoContext> contexts) {
         var project = scope.project();
-        if (result.getEditorBlocks().isEmpty()) {
-            ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result.getRaw(), "Prompto"));
-        } else {
-            WriteCommandAction.runWriteCommandAction(project, () -> {
-                var hasChanged = insertCode(scope, result);
-                if (!hasChanged) {
-                    ApplicationManager.getApplication().invokeLater(() -> Messages.showInfoMessage(result.getRaw(), "Prompto"));
-                }
-            });
-        }
+        WriteCommandAction.runWriteCommandAction(project, () -> {
+            var hasChanged = insertCode(scope, result);
+            if (!hasChanged) {
+                ApplicationManager.getApplication().invokeLater(() -> new PromptoAnswerDialog(scope.project(), result.getRaw()).show());
+            }
+        });
     }
 
     private boolean insertCode(PromptoPipeline.Scope scope, PromptoResponse response) {

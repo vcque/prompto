@@ -64,6 +64,7 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
+    <depends>org.intellij.plugins.markdown</depends>
     <depends optional="true" config-file="ultimate.xml">com.intellij.database</depends>
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable parentId="tools" instance="com.vcque.prompto.settings.PromptoSettingsConfigurable"

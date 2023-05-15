@@ -23,6 +23,7 @@ intellij {
             "com.intellij.java",
             "JavaScript",
             "com.intellij.database",
+            "markdown",
             ))
 }
 
