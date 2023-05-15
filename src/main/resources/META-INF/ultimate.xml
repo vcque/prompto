@@ -2,6 +2,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <intentionAction>
             <className>com.vcque.prompto.ultimate.actions.PromptoSqlAction</className>
+            <language>SQL</language>
             <category>Prompto</category>
         </intentionAction>
     </extensions>

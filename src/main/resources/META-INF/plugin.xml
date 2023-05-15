@@ -80,6 +80,7 @@
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoImplementAction</className>
             <category>Prompto</category>
+            <language>JAVA</language>
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoAskAction</className>
