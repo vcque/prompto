@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.vcque.prompto</id>
-    <name>Prompto</name>
+    <name>Prompto - ChatGPT Assistant</name>
     <vendor email="vocquet.ocquet@gmail.com" url="https://github.com/vcque">Vincent Ocquet</vendor>
 
     <description><![CDATA[
@@ -34,8 +34,7 @@
       </p>
       <h2>Prompto ask</h2>
       <p>
-        Use this action to ask a quick question about the code. <br>
-        This is more for flavor but can be sometimes useful. <br>
+        Use this action to ask a quick question about your project. <br>
         You can also ask Prompto how it's going, I guess it's a feature ¯\_(ツ)_/¯
       </p>
       <h2>Prompto sql - Intellij Ultimate only</h2>
