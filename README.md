@@ -6,7 +6,7 @@ The core concept of Prompto is to capture your IDE state in order to contextuali
 This allows the generated responses to be fine-tuned to your use-case, building on the code present in your project. 
 Prompto has been mainly used and tested on Java projects but can also work on other languages in a limited way.
 
-**Be mindful of potential issues with private or sensitive data.** Each action lists what type of data it sends to the LLM.
+**Be mindful of potential issues with private or sensitive data.** You can preview the context data before sending your prompt to the LLM.
 
 To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with prompto actions.
 

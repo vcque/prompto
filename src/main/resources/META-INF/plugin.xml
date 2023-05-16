@@ -13,7 +13,7 @@
       </p>
       <br>
       <p>
-        <strong>be mindful of potential issues with private or sensitive data</strong>. Each action lists what type of data it sends to the LLM.
+        <strong>be mindful of potential issues with private or sensitive data</strong>. You can preview the context data before sending your prompt to the LLM.
       </p>
       <br>
       <p>
