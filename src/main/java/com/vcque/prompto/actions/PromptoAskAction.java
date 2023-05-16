@@ -16,9 +16,9 @@ public class PromptoAskAction extends PromptoAction<String> {
         return PromptoPipeline.<String>builder()
                 .name("ask")
                 .retrievers(List.of(
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
-                        PromptoRetrieverDefinition.of(new LanguageRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new LanguageRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))

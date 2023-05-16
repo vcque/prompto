@@ -36,11 +36,11 @@ public class PromptoInsertAction extends PromptoAction<PromptoResponse> {
         return PromptoPipeline.<PromptoResponse>builder()
                 .name("insert")
                 .retrievers(List.of(
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
-                ))
+                        ))
                 .defaultInput("")
                 .output(new InsertOutput())
                 .execution((result, scope, contexts) -> {

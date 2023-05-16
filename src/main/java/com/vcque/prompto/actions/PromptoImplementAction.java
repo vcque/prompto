@@ -27,11 +27,11 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
         return PromptoPipeline.<PromptoResponse>builder()
                 .name("implement")
                 .retrievers(List.of(
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
-                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
                         PromptoRetrieverDefinition.of(new MethodRetriever()),
-                        PromptoRetrieverDefinition.of(new AvailableClassesRetriever())
+                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))
                 .defaultInput("Implement this method to the best of your abilities")
                 .output(new MethodOutput())
