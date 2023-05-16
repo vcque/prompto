@@ -20,11 +20,10 @@
         To use it, fill in your API key in Prompto settings and press Alt-Enter in the editor to be presented with prompto actions.
       </p>
       <br>
-      <h2>Prompto clipboard</h2>
+      <h2>General use</h2>
       <p>
-        Use this action to save your IDE state to you clipboard so that you can use it on the ChatGPT webapp. <br>
-        It also allows you to inspect what that is being captured by Prompto. <br>
-        <strong>This action does not need an API key.</strong>
+        Starting a Prompto action opens a dialog which shows which context information to add to your prompt.
+        You can then either send the query to the LLM or export it to your clipboard.
       </p>
       <h2>Prompto implement</h2>
       <p>
@@ -74,10 +73,6 @@
         <notificationGroup id="Prompto"
                            displayType="BALLOON"
         />
-        <intentionAction>
-            <className>com.vcque.prompto.actions.PromptoClipboardAction</className>
-            <category>Prompto</category>
-        </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoImplementAction</className>
             <category>Prompto</category>
