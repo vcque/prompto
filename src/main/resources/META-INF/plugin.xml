@@ -48,16 +48,19 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h1>0.7.0</h1>
         <h2>New Features</h2>
         <ul>
-          <li>Allow to choose between gpt-3.5-turbo and gpt-4 models</li>
-          <li>Rename `rewrite method` action to `implement`</li>
-          <li>Add an SQL script action</li>
+          <li>Add a markdown renderer for prompto answers</li>
+          <li>Add a query popup for Prompto actions, allowing to preview and choose the context data</li>
+          <li>Clipboard is now an alternative output of any prompto action.</li>
+          <li>Remove the specific "clipboard" action.</li>
+          <li>Communicate output formatting prompts as USER, the LLM tends to follow it more</li>
+          <li>When a "Prompto implement" fails to edit code, fallback to showing the LLM response</li>
         </ul>
-        <h2>Bug Fixes</h2>
-        <ul>
-          <li>Better prompt for the implement action</li>
-        </ul>
+<!--        <h2>Bug Fixes</h2>-->
+<!--        <ul>-->
+<!--        </ul>-->
     ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
