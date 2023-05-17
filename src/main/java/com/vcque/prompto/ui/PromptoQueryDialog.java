@@ -151,9 +151,15 @@ public class PromptoQueryDialog extends DialogWrapper {
 
     @Override
     protected @Nullable JComponent createCenterPanel() {
-        var contentPane = new NonOpaquePanel();
+        var contentPane = new NonOpaquePanel(new GridLayoutManager(2, 1));
+        var contextLabel = new JBLabel("Context information to add to your prompt:");
         var scrollPane = new JBScrollPane(contextTree);
-        contentPane.add(scrollPane);
+        var gc = new GridConstraints();
+        gc.setAnchor(GridConstraints.ANCHOR_WEST);
+        contentPane.add(contextLabel, gc);
+        gc.setRow(1);
+        gc.setFill(GridConstraints.FILL_BOTH);
+        contentPane.add(scrollPane, gc);
         return contentPane;
     }
 
