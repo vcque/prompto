@@ -47,6 +47,7 @@ public class PromptoQueryDialog extends DialogWrapper {
         this.contextTree = buildCheckedTree(maxTokens, contextsByRetrievers);
 
         userInput.setText(pipeline.getDefaultInput());
+        userInput.setMinimumSize(new Dimension(500, 0));
         tokenCount.setToolTipText("Most LLMs handle a 4k token context. Go higher at your own risk.");
 
         contextTree.addCheckboxTreeListener(new CheckboxTreeListener() {
@@ -79,7 +80,7 @@ public class PromptoQueryDialog extends DialogWrapper {
 
         var overMax = cost > maxTokens;
         tokenCount.setForeground(overMax ? JBColor.RED : JBColor.foreground());
-        tokenCount.setFont(tokenCount.getFont().deriveFont(overMax ? Font.BOLD : Font.PLAIN));
+        tokenCount.setFont(tokenCount.getFont().deriveFont(Font.ITALIC + (overMax ? Font.BOLD : Font.PLAIN)));
         tokenCount.setText("Approximate token usage: %d/%d".formatted(cost, maxTokens));
     }
 
@@ -174,10 +175,12 @@ public class PromptoQueryDialog extends DialogWrapper {
         var panel = new NonOpaquePanel();
         panel.setLayout(new GridLayoutManager(2, 2));
         var gc = new GridConstraints();
-        gc.setAnchor(GridConstraints.ANCHOR_WEST);
+        gc.setAnchor(GridConstraints.ANCHOR_SOUTHWEST);
         gc.setFill(GridConstraints.FILL_HORIZONTAL);
         gc.setHSizePolicy(GridConstraints.SIZEPOLICY_WANT_GROW);
+        gc.setColSpan(2);
         panel.add(tokenCount, gc);
+        gc.setColSpan(1);
         gc.setRow(1);
         panel.add(userInput, gc);
         gc.setColumn(1);
