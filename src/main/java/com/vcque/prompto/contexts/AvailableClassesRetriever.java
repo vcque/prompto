@@ -128,6 +128,11 @@ public class AvailableClassesRetriever implements PromptoRetriever {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public String name() {
+        return "Java classes";
+    }
+
     private Collection<? extends PsiClass> retrieveAllImports(Editor editor) {
         var psiFile = PsiDocumentManager.getInstance(editor.getProject()).getPsiFile(editor.getDocument());
         if (psiFile instanceof PsiJavaFile javaFile) {

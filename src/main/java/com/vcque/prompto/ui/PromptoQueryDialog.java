@@ -116,7 +116,7 @@ public class PromptoQueryDialog extends DialogWrapper {
                 }
                 value = ((DefaultMutableTreeNode) value).getUserObject();
                 if (value instanceof PromptoRetrieverDefinition prd) {
-                    getTextRenderer().append(prd.getRetriever().getClass().getSimpleName());
+                    getTextRenderer().append(prd.getRetriever().name());
                     if (!prd.isOptional()) {
                         getTextRenderer().append(
                                 "  -  required",

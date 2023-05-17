@@ -17,6 +17,11 @@ public class LanguageRetriever implements PromptoUniqueRetriever {
     }
 
     @Override
+    public String name() {
+        return "Editor language";
+    }
+
+    @Override
     public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var psiFile = PsiUtilBase.getPsiFileInEditor(editor, project);
         return Optional.ofNullable(psiFile)

@@ -17,4 +17,8 @@ public class SelectionRetriever implements PromptoUniqueRetriever {
         return editor.getSelectionModel().getSelectedText();
     }
 
+    @Override
+    public String name() {
+        return "Editor selection";
+    }
 }

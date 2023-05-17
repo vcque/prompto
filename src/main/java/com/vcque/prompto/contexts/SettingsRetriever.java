@@ -18,4 +18,8 @@ public class SettingsRetriever implements PromptoUniqueRetriever {
         return PromptoContext.Type.SETTINGS;
     }
 
+    @Override
+    public String name() {
+        return "Prompto settings";
+    }
 }

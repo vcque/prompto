@@ -25,4 +25,8 @@ public class MethodRetriever implements PromptoUniqueRetriever {
         return PromptoContext.Type.METHOD;
     }
 
+    @Override
+    public String name() {
+        return "Selected method";
+    }
 }

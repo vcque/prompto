@@ -16,4 +16,5 @@ public interface PromptoRetriever {
 
     Set<PromptoContext> retrieveContexts(@NotNull Project project, Editor editor, @NotNull PsiElement element);
 
+    String name();
 }

@@ -38,6 +38,11 @@ public class SqlSchemaRetriever implements PromptoUniqueRetriever {
     }
 
     @Override
+    public String name() {
+        return "SQL schema";
+    }
+
+    @Override
     public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var datasource = retrieveDataSource(project, editor);
         return printDatabaseSchema(datasource);

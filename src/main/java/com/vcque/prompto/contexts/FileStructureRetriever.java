@@ -22,6 +22,11 @@ public class FileStructureRetriever implements PromptoUniqueRetriever {
     }
 
     @Override
+    public String name() {
+        return "File structure";
+    }
+
+    @Override
     public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         return buildFileStructure(project);
     }

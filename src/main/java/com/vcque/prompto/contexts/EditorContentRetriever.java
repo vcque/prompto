@@ -40,6 +40,11 @@ public class EditorContentRetriever implements PromptoUniqueRetriever {
     }
 
     @Override
+    public String name() {
+        return "Editor content";
+    }
+
+    @Override
     public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         return PromptoLangs.getInstance().shrinkEditor(editor, config.maxCost);
     }
