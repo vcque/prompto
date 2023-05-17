@@ -32,7 +32,7 @@ public class PromptoSettingsComponent {
                 .addVerticalGap(8)
                 .addLabeledComponent(new JBLabel("GPT version: "), languageModel, 1, false)
                 .addVerticalGap(8)
-                .addLabeledComponent(new JBLabel("Project context: "), projectContext, 1, false)
+                .addLabeledComponent(new JBLabel("Global context information: "), projectContext, 1, false)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
     }
