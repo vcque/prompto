@@ -41,11 +41,11 @@ public class AvailableClassesRetriever implements PromptoRetriever {
         /**
          * Max token cost of this context. Need to make this configurable.
          */
-        private int maxCost = 2000;
+        private int maxCost = 3000;
         /**
          * Max depth of the recursive search.
          */
-        private int maxDepth = 5;
+        private int maxDepth = 8;
     }
 
     private final Config config;
