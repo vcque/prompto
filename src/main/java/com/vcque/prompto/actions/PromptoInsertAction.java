@@ -14,6 +14,7 @@ import com.vcque.prompto.contexts.AvailableClassesRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
 import com.vcque.prompto.contexts.SettingsRetriever;
+import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import com.vcque.prompto.outputs.InsertOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
@@ -52,7 +53,7 @@ public class PromptoInsertAction extends PromptoAction<PromptoResponse> {
                         WriteCommandAction.runWriteCommandAction(project, () -> {
                             var oldPsiClass = Utils.findParentOfType(scope.element(), PsiClass.class);
                             for(var block : result.getEditorBlocks()) {
-                                var newPsiClass = Utils.asPsiClass(block.code(), project);
+                                var newPsiClass = PromptoJavaUtils.asPsiClass(project, block.code());
                                 Utils.mergePsiClasses(oldPsiClass, newPsiClass);
                             }
                         });

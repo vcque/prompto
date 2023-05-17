@@ -2,6 +2,7 @@ package com.vcque.prompto;
 
 import com.intellij.psi.*;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import org.junit.jupiter.api.Test;
 
 public class UtilsTest extends BasePlatformTestCase {
@@ -21,7 +22,7 @@ public class UtilsTest extends BasePlatformTestCase {
                     System.out.println("Hello world!");
                 }
                 """;
-        Utils.mergePsiClasses(psiClass, Utils.asPsiClass(newCode, getProject()));
+        Utils.mergePsiClasses(psiClass, PromptoJavaUtils.asPsiClass(getProject(), newCode));
 
         // Verify that the method was updated
         PsiMethod updatedMethod = psiClass.findMethodsByName("myMethod", false)[0];
@@ -47,7 +48,7 @@ public class UtilsTest extends BasePlatformTestCase {
                     System.out.println("This is another method!");
                 }
                 """;
-        Utils.mergePsiClasses(psiClass, Utils.asPsiClass(newCode, getProject()));
+        Utils.mergePsiClasses(psiClass, PromptoJavaUtils.asPsiClass(getProject(), newCode));
 
         // Verify that the methods were updated
         PsiMethod updatedMethod = psiClass.findMethodsByName("myMethod", false)[0];
@@ -57,29 +58,4 @@ public class UtilsTest extends BasePlatformTestCase {
         assertEquals("myOtherMethod".trim(), updatedOtherMethod.getName());
     }
 
-    @Test
-    public void testAsPsiClass_classCase() {
-        String code = "public class MyClass {}";
-        var psiClass = Utils.asPsiClass(code, getProject());
-        assertNotNull(psiClass);
-    }
-
-    @Test
-    public void testAsPsiClass_methodCase() {
-        String code = "public void test() {}";
-        var psiClass = Utils.asPsiClass(code, getProject());
-        assertNotNull(psiClass);
-        assertEquals(1, psiClass.getMethods().length);
-    }
-
-    @Test
-    public void testAsPsiClass_multipleMethodCase() {
-        String code = """
-                public void test1() {}
-                public void test2() {}
-                """;
-        var psiClass = Utils.asPsiClass(code, getProject());
-        assertNotNull(psiClass);
-        assertEquals(2, psiClass.getMethods().length);
-    }
 }

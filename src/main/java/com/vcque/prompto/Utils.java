@@ -158,14 +158,6 @@ public class Utils {
         return true;
     }
 
-    /**
-     * Return a PsiClass if the code represents a psiclass. Empty otherwise.
-     */
-    public static PsiClass asPsiClass(String code, Project project) {
-        var elementFactory = PsiElementFactory.getInstance(project);
-        return elementFactory.createClassFromText(code, null);
-    }
-
     public static <T extends PsiElement> T findParentOfType(@NotNull PsiElement element, Class<T> psi) {
         return psi.isInstance(psi) ? (T) element : PsiTreeUtil.getParentOfType(element, psi);
     }

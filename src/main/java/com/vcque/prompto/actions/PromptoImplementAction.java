@@ -13,6 +13,7 @@ import com.vcque.prompto.contexts.LanguageRetriever;
 import com.vcque.prompto.contexts.MethodRetriever;
 import com.vcque.prompto.contexts.PromptoContext;
 import com.vcque.prompto.contexts.SettingsRetriever;
+import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import com.vcque.prompto.outputs.MethodOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
@@ -66,8 +67,8 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
         var editorBlocks = response.getEditorBlocks();
         for (var editorBlock : editorBlocks) {
             var code = editorBlock.code();
-            var psiClass = Utils.asPsiClass(code, project);
-            if (psiClass.getMethods().length > 0) {
+            var psiClass = PromptoJavaUtils.asPsiClass(project, code);
+            if (psiClass != null && psiClass.getMethods().length > 0) {
                 return psiClass;
             }
         }
