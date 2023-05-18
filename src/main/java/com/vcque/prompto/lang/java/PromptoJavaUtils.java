@@ -7,7 +7,6 @@ import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiMethod;
-import com.vcque.prompto.Utils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +25,7 @@ public class PromptoJavaUtils {
     }
 
     /**
-     * Return a PsiClass if the code represents a psiclass. Empty otherwise.
+     * Return a PsiClass if the code represents a psiclass with methods. Null otherwise.
      */
     public static PsiClass asPsiClass(Project project, String sourceCode) {
         // Method 1: wrap the code into a class

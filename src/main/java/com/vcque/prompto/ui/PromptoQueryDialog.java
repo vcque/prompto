@@ -160,6 +160,7 @@ public class PromptoQueryDialog extends DialogWrapper {
         contentPane.add(contextLabel, gc);
         gc.setRow(1);
         gc.setFill(GridConstraints.FILL_BOTH);
+        gc.setVSizePolicy(GridConstraints.SIZEPOLICY_WANT_GROW + GridConstraints.SIZEPOLICY_CAN_SHRINK + GridConstraints.SIZEPOLICY_CAN_GROW );
         contentPane.add(scrollPane, gc);
         return contentPane;
     }
