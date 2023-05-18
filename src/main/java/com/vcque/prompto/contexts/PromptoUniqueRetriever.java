@@ -5,7 +5,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
+import java.util.List;
 
 public interface PromptoUniqueRetriever extends PromptoRetriever {
 
@@ -14,13 +14,13 @@ public interface PromptoUniqueRetriever extends PromptoRetriever {
     PromptoContext.Type type();
 
 
-    default Set<PromptoContext> retrieveContexts(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+    default List<PromptoContext> retrieveContexts(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var value = retrieveUniqueContext(project, editor, element);
         if (value == null || value.isBlank()) {
-            return Set.of();
+            return List.of();
         }
 
-        return Set.of(
+        return List.of(
                 PromptoContext.builder()
                         .value(value)
                         .type(type())

@@ -77,7 +77,7 @@ public class AvailableClassesRetriever implements PromptoRetriever {
      * @return the context of the current method as a string containing the text of all adjacent classes
      */
     @Override
-    public Set<PromptoContext> retrieveContexts(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+    public List<PromptoContext> retrieveContexts(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var editorPsiClass = Utils.findParentOfType(element, PsiClass.class);
 
         // will contain the final classes to add to context
@@ -125,7 +125,7 @@ public class AvailableClassesRetriever implements PromptoRetriever {
                                 .type(PromptoContext.Type.CLASS)
                                 .build()
                 )
-                .collect(Collectors.toSet());
+                .toList();
     }
 
     @Override

@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class PromptoQueryDialog extends DialogWrapper {
     private final CheckboxTree contextTree;
@@ -41,7 +40,7 @@ public class PromptoQueryDialog extends DialogWrapper {
 
     private final int maxTokens;
 
-    public PromptoQueryDialog(PromptoPipeline<?> pipeline, LinkedHashMap<PromptoRetrieverDefinition, Set<PromptoContext>> contextsByRetrievers, int maxTokens) {
+    public PromptoQueryDialog(PromptoPipeline<?> pipeline, LinkedHashMap<PromptoRetrieverDefinition, List<PromptoContext>> contextsByRetrievers, int maxTokens) {
         super(true);
         this.maxTokens = maxTokens;
         this.contextTree = buildCheckedTree(maxTokens, contextsByRetrievers);
@@ -90,7 +89,7 @@ public class PromptoQueryDialog extends DialogWrapper {
      * @param contextsByRetrievers data model
      * @return The JTree
      */
-    private CheckboxTree buildCheckedTree(int maxTokens, Map<PromptoRetrieverDefinition, Set<PromptoContext>> contextsByRetrievers) {
+    private CheckboxTree buildCheckedTree(int maxTokens, Map<PromptoRetrieverDefinition, List<PromptoContext>> contextsByRetrievers) {
         var tokenUsage = 0;
         var rootNode = new CheckedTreeNode("retrievers");
         for (var entry : contextsByRetrievers.entrySet()) {
