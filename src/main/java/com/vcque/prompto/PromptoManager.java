@@ -13,6 +13,7 @@ import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import com.vcque.prompto.contexts.PromptoContext;
 import com.vcque.prompto.exceptions.MissingTokenException;
+import com.vcque.prompto.outputs.PromptoOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.settings.PromptoSettingsState;
 import com.vcque.prompto.ui.PromptoQueryDialog;
@@ -71,6 +72,7 @@ public class PromptoManager {
 
         var contexts = dialog.getSelectedContexts();
         var userInput = dialog.getUserInput();
+        var outputParams = new PromptoOutput.Params(userInput, contexts, scope);
 
         var chatMessages = new ArrayList<ChatMessage>();
         chatMessages.add(Prompts.codingAssistant());
@@ -80,8 +82,7 @@ public class PromptoManager {
                         .map(Prompts::promptoContext)
                         .toList()
         );
-        chatMessages.add(pipeline.getOutput().chatMessage());
-        chatMessages.add(Prompts.userInput(userInput));
+        chatMessages.addAll(pipeline.getOutput().buildOutputFormattingMessages(outputParams));
 
         if (exitCode == DialogWrapper.OK_EXIT_CODE) {
             updateToken();
@@ -89,7 +90,7 @@ public class PromptoManager {
                 @Override
                 public void run(@NotNull ProgressIndicator indicator) {
                     try {
-                        handleLLManswer(pipeline, contexts, scope, chatMessages);
+                        callLLM(pipeline, contexts, scope, chatMessages, userInput);
                     } catch (MissingTokenException e) {
                         var notification = new Notification(
                                 "Prompto",
@@ -117,7 +118,7 @@ public class PromptoManager {
         }
     }
 
-    private <T> void handleLLManswer(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, PromptoPipeline.Scope scope, ArrayList<ChatMessage> chatMessages) {
+    private <T> void callLLM(PromptoPipeline<T> pipeline, List<PromptoContext> contexts, PromptoPipeline.Scope scope, ArrayList<ChatMessage> chatMessages, String userInput) {
         // Send messages to OpenAI
         var result = openAI.createChatCompletion(
                 ChatCompletionRequest.builder()
@@ -130,7 +131,8 @@ public class PromptoManager {
 
         // Retrieve the LLM response message
         var response = result.getChoices().get(0).getMessage().getContent();
-        var extractedResult = pipeline.getOutput().extractOutput(response);
+        var outputParams = new PromptoOutput.Params(userInput, contexts, scope);
+        var extractedResult = pipeline.getOutput().extractOutput(response, outputParams);
         // Execute the action
         pipeline.getExecution().execute(extractedResult, scope, contexts);
     }
