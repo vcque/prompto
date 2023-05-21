@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 @ToString
 public class PromptoResponse {
 
-    static final Pattern EDITOR_PATTERN = Pattern.compile("```(\\w*)\n(.*?)```", Pattern.DOTALL);
+    static final Pattern EDITOR_PATTERN = Pattern.compile("```(\\w*)\n(.*?)(?=```|$)", Pattern.DOTALL);
 
     public static List<EditorBlock> extractEditorBlocks(String text) {
 
