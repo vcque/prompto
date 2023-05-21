@@ -48,8 +48,7 @@ tasks {
     runPluginVerifier {
       ideVersions.set(listOf(
               "IIC-2022.2",
-              "IIU-2022.2",
-              "AS-2022.2"
+              "IIU-2022.2"
       ))
     }
 

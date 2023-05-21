@@ -82,7 +82,7 @@ public class SqlSchemaRetriever implements PromptoUniqueRetriever {
                 stringBuilder.append(column.getName());
                 if (column instanceof DasTypedObject dto) {
                     stringBuilder.append(" ");
-                    stringBuilder.append(dto.getDasType().getSpecification());
+                    stringBuilder.append(dto.getDataType().getSpecification());
                 }
             }
 
@@ -91,7 +91,7 @@ public class SqlSchemaRetriever implements PromptoUniqueRetriever {
                 stringBuilder.append(foreignKeyAsText(foreignKey));
                 if (foreignKey instanceof DasTypedObject dto) {
                     stringBuilder.append(" ");
-                    stringBuilder.append(dto.getDasType().getSpecification());
+                    stringBuilder.append(dto.getDataType().getSpecification());
                 }
             }
         }
