@@ -49,12 +49,12 @@ tasks {
       ideVersions.set(listOf(
               "IIC-2022.2",
               "IIU-2022.2",
-              "AS-2022-2"
+              "AS-2022.2"
       ))
     }
 
     patchPluginXml {
-        sinceBuild.set("223")
+        sinceBuild.set("222")
         untilBuild.set("232.*")
     }
 
