@@ -27,8 +27,7 @@ public class PromptoPipeline<T> {
     private List<PromptoRetrieverDefinition> retrievers;
     private PromptoOutput<T> output;
     private PromptoExecution<T> execution;
-    @Builder.Default
-    private List<String> stopwords = List.of();
+    private List<String> stopwords;
 
     /**
      * Represents the scope of a pipeline execution, containing project, editor, and PSI element information.
