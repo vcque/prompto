@@ -17,7 +17,8 @@ public class PromptoResponse {
 
     static final Pattern EDITOR_PATTERN = Pattern.compile("```(\\w*)\n(.*?)(?=```|$)", Pattern.DOTALL);
 
-    public static final String EDITOR_STOPWORD = "```\n";
+    /** LLMs almost never have a blank line after opening an editor but almost always have a blank line after closing one. */
+    public static final String EDITOR_STOPWORD = "```\n\n";
 
     public static List<EditorBlock> extractEditorBlocks(String text) {
 
