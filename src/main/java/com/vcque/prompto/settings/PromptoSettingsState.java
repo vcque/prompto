@@ -14,7 +14,7 @@ public final class PromptoSettingsState implements PersistentStateComponent<Prom
 
     public String apiToken = "";
     public String languageModel = "gpt-3.5-turbo";
-    public String projectContext = "The user is an experienced developer familiar with the code base.";
+    public String projectContext = "The user is an experienced developer familiar with the code base. Be very concise and do not waste his time with trivial or obvious considerations.";
 
     public static PromptoSettingsState getInstance() {
         return ApplicationManager.getApplication().getService(PromptoSettingsState.class);

@@ -13,7 +13,6 @@ import com.vcque.prompto.contexts.ErrorRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
 import com.vcque.prompto.contexts.MethodRetriever;
 import com.vcque.prompto.contexts.PromptoContext;
-import com.vcque.prompto.contexts.SettingsRetriever;
 import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import com.vcque.prompto.outputs.MethodOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -32,7 +31,6 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
                         PromptoRetrieverDefinition.of(new MethodRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new ErrorRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))

@@ -8,7 +8,6 @@ import com.vcque.prompto.actions.PromptoAction;
 import com.vcque.prompto.ultimate.contexts.SqlSchemaRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
-import com.vcque.prompto.contexts.SettingsRetriever;
 import com.vcque.prompto.outputs.SqlOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
@@ -24,7 +23,6 @@ public class PromptoSqlAction extends PromptoAction<PromptoResponse> {
                 .retrievers(List.of(
                         PromptoRetrieverDefinition.of(new SqlSchemaRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new LanguageRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new EditorContentRetriever())
                 ))
                 .defaultInput("")

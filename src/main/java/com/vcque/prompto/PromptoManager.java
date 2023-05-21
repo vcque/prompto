@@ -10,6 +10,7 @@ import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
+import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
 import com.vcque.prompto.contexts.PromptoContext;
 import com.vcque.prompto.exceptions.MissingTokenException;
@@ -76,7 +77,7 @@ public class PromptoManager {
 
         var chatMessages = new ArrayList<ChatMessage>();
         chatMessages.add(Prompts.codingAssistant());
-        chatMessages.add(Prompts.promptoContextFormat());
+        chatMessages.add(new ChatMessage(ChatMessageRole.SYSTEM.value(), PromptoSettingsState.getInstance().projectContext));
         chatMessages.addAll(
                 contexts.stream()
                         .map(Prompts::promptoContext)

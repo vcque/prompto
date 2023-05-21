@@ -18,7 +18,6 @@ public class PromptoAskAction extends PromptoAction<String> {
                 .retrievers(List.of(
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new LanguageRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))

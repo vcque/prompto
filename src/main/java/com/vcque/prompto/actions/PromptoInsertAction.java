@@ -13,7 +13,6 @@ import com.vcque.prompto.Utils;
 import com.vcque.prompto.contexts.AvailableClassesRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
-import com.vcque.prompto.contexts.SettingsRetriever;
 import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import com.vcque.prompto.outputs.InsertOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
@@ -39,7 +38,6 @@ public class PromptoInsertAction extends PromptoAction<PromptoResponse> {
                 .retrievers(List.of(
                         PromptoRetrieverDefinition.of(new LanguageRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                         ))
                 .defaultInput("")
