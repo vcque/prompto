@@ -55,25 +55,6 @@ public class Prompts {
         );
     }
 
-    public static ChatMessage addToExistingOutput() {
-        return new ChatMessage(ChatMessageRole.USER.value(),
-                """
-                        Your task is to generate content based on the my next input.
-                        Respond with a code snippet that will be inserted in the current editor.
-                        """
-        );
-    }
-
-    public static ChatMessage answermeOutput() {
-        return new ChatMessage(
-                ChatMessageRole.USER.value(),
-                """
-                        I will instruct you a task about the provided context information.
-                        Do answer truthfully. If you don't know how to do the task, say so and provide the reasons why.
-                        """
-        );
-    }
-
     public static ChatMessage sqlOutput() {
         return new ChatMessage(ChatMessageRole.USER.value(), """
                 Your task is to provide a high-quality SQL script based on my next input.
