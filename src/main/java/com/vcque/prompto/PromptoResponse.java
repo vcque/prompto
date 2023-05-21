@@ -17,6 +17,8 @@ public class PromptoResponse {
 
     static final Pattern EDITOR_PATTERN = Pattern.compile("```(\\w*)\n(.*?)(?=```|$)", Pattern.DOTALL);
 
+    public static final String EDITOR_STOPWORD = "```\n";
+
     public static List<EditorBlock> extractEditorBlocks(String text) {
 
         var matcher = EDITOR_PATTERN.matcher(text);

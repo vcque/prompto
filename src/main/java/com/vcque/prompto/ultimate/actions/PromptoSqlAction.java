@@ -26,6 +26,7 @@ public class PromptoSqlAction extends PromptoAction<PromptoResponse> {
                         PromptoRetrieverDefinition.ofOptional(new EditorContentRetriever())
                 ))
                 .defaultInput("")
+                .stopwords(List.of(PromptoResponse.EDITOR_STOPWORD))
                 .output(new SqlOutput())
                 .execution((result, scope, contexts) -> {
                     var project = scope.project();

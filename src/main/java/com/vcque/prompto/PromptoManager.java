@@ -126,6 +126,7 @@ public class PromptoManager {
                         .temperature(TEMPERATURE)
                         .model(PromptoSettingsState.getInstance().languageModel)
                         .messages(chatMessages)
+                        .stop(pipeline.getStopwords())
                         .stream(false)
                         .build()
         );
