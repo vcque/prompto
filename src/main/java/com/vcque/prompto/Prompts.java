@@ -19,7 +19,7 @@ public class Prompts {
         return new ChatMessage(
                 ChatMessageRole.SYSTEM.value(),
                 """
-                        You are Prompto, an intelliJ coding assistant helping the user completing its programming tasks.
+                        You are Prompto, a coding assistant integrated into the intellij IDE that helps the user completing its programming tasks.
                         """.trim()
         );
     }
