@@ -44,11 +44,10 @@ public class PromptoQueryDialog extends DialogWrapper {
         super(true);
         this.maxTokens = maxTokens;
         this.contextTree = buildCheckedTree(maxTokens, contextsByRetrievers);
-
+        this.setUndecorated(true);
         userInput.setText(pipeline.getDefaultInput());
         userInput.setMinimumSize(new Dimension(500, 0));
         tokenCount.setToolTipText("Most LLMs handle a 4k token context. Go higher at your own risk.");
-
         contextTree.addCheckboxTreeListener(new CheckboxTreeListener() {
             @Override
             public void nodeStateChanged(@NotNull CheckedTreeNode node) {
@@ -58,7 +57,6 @@ public class PromptoQueryDialog extends DialogWrapper {
         updateTokens();
 
         init();
-        setTitle("Prompto " + pipeline.getName());
     }
 
     public List<PromptoContext> getSelectedContexts() {
@@ -84,8 +82,7 @@ public class PromptoQueryDialog extends DialogWrapper {
     }
 
     /**
-     *
-     * @param maxTokens Used to define the initial checked contexts
+     * @param maxTokens            Used to define the initial checked contexts
      * @param contextsByRetrievers data model
      * @return The JTree
      */
@@ -159,7 +156,7 @@ public class PromptoQueryDialog extends DialogWrapper {
         contentPane.add(contextLabel, gc);
         gc.setRow(1);
         gc.setFill(GridConstraints.FILL_BOTH);
-        gc.setVSizePolicy(GridConstraints.SIZEPOLICY_WANT_GROW + GridConstraints.SIZEPOLICY_CAN_SHRINK + GridConstraints.SIZEPOLICY_CAN_GROW );
+        gc.setVSizePolicy(GridConstraints.SIZEPOLICY_WANT_GROW + GridConstraints.SIZEPOLICY_CAN_SHRINK + GridConstraints.SIZEPOLICY_CAN_GROW);
         contentPane.add(scrollPane, gc);
         return contentPane;
     }
@@ -203,6 +200,7 @@ public class PromptoQueryDialog extends DialogWrapper {
     }
 
     protected final ClipboardAction clipboardAction = new ClipboardAction();
+
     protected class ClipboardAction extends DialogWrapperAction {
 
         protected ClipboardAction() {
