@@ -24,12 +24,12 @@ public class Prompts {
         );
     }
 
-    public static ChatMessage rewriteMethodOutput() {
+    public static ChatMessage implementMethodOutput() {
         return new ChatMessage(
                 ChatMessageRole.USER.value(),
                 """
-                        Your task is to implement or rewrite the context method based on the my next input.
-                        If the user does not provide specific directives and the method is not implemented, do an informed guess and implement the method based on this guess.
+                        Your task is to implement or rewrite the currently focused method based on the my next input.
+                        If I do not provide specific directives and the method is not implemented, do an informed guess and implement the method based on this guess.
                         Ensure that the code you provide is efficient, well-structured, and adheres to best practices.
                         Always answer with one or multiple methods between triple back quotes in the queried language.
                         """.trim()

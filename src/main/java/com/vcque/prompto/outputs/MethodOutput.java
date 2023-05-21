@@ -11,7 +11,7 @@ public class MethodOutput implements PromptoOutput<PromptoResponse> {
     @Override
     public List<ChatMessage> buildOutputFormattingMessages(Params params) {
         return List.of(
-                Prompts.rewriteMethodOutput(),
+                Prompts.implementMethodOutput(),
                 Prompts.userInput(params.userInput())
         );
     }

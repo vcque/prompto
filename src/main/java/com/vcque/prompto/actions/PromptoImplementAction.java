@@ -36,7 +36,7 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
                         PromptoRetrieverDefinition.ofOptional(new ErrorRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))
-                .defaultInput("Implement this method to the best of your abilities")
+                .defaultInput("Go")
                 .output(new MethodOutput())
                 .execution(this::apply)
                 .build();
