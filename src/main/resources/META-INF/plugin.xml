@@ -48,14 +48,20 @@
     ]]></description>
 
     <change-notes><![CDATA[
-        <h1>0.7.1</h1>
-<!--        <h2>New Features</h2>-->
-<!--        <ul>-->
-<!--          <li>When a "Prompto implement" fails to edit code, fallback to showing the LLM response</li>-->
-<!--        </ul>-->
+        <h1>0.8.0</h1>
+        <h2>New Features</h2>
+        <ul>
+          <li>Add IDE errors as available prompto contexts</li>
+          <li>Better overall prompto query popup</li>
+          <li>Add labels to context retriever previews</li>
+          <li>Prompto icon gets a white background</li>
+          <li>Add an editor stopword to implement and sql actions so that the response is handled faster</li>
+          <li>User input and context values can be contributed to the output formatting prompt</li>
+        </ul>
         <h2>Bug Fixes</h2>
         <ul>
-          <li>When a "Prompto implement" fails to edit code, fallback to showing the LLM response</li>
+          <li>Contexts keeps their retrieval order for priorisation purpose</li>
+          <li>Fix gradle config which was not allowing compatible intellij versions</li>
         </ul>
     ]]></change-notes>
 
