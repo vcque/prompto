@@ -9,6 +9,7 @@ import com.vcque.prompto.PromptoResponse;
 import com.vcque.prompto.Utils;
 import com.vcque.prompto.contexts.AvailableClassesRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
+import com.vcque.prompto.contexts.ErrorRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
 import com.vcque.prompto.contexts.MethodRetriever;
 import com.vcque.prompto.contexts.PromptoContext;
@@ -32,6 +33,7 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
                         PromptoRetrieverDefinition.of(new MethodRetriever()),
                         PromptoRetrieverDefinition.of(new EditorContentRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new SettingsRetriever()),
+                        PromptoRetrieverDefinition.ofOptional(new ErrorRetriever()),
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))
                 .defaultInput("Implement this method to the best of your abilities")
