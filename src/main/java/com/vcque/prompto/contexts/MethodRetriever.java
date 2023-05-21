@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.vcque.prompto.Utils;
+import com.vcque.prompto.lang.java.PromptoJavaUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -15,8 +16,12 @@ public class MethodRetriever implements PromptoUniqueRetriever {
     public String retrieveUniqueContext(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         var method = Utils.findParentOfType(element, PsiMethod.class);
         return Optional.ofNullable(method)
-                .map(PsiMethod::getNameIdentifier)
-                .map(PsiElement::getText)
+                .map(m -> {
+                    var copy = (PsiMethod) method.copy();
+                    Optional.ofNullable(copy.getDocComment()).ifPresent(PsiElement::delete);
+                    PromptoJavaUtils.elideBody(copy);
+                    return copy.getText();
+                })
                 .orElse(null);
     }
 
