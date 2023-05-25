@@ -1,4 +1,4 @@
-package com.vcque.prompto.ultimate.contexts;
+package com.vcque.prompto.extensions.ultimate.contexts;
 
 import com.intellij.database.model.DasDataSource;
 import com.intellij.database.model.DasForeignKey;

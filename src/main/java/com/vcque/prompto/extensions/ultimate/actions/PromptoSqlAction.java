@@ -1,11 +1,11 @@
-package com.vcque.prompto.ultimate.actions;
+package com.vcque.prompto.extensions.ultimate.actions;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.ui.Messages;
 import com.vcque.prompto.PromptoResponse;
 import com.vcque.prompto.actions.PromptoAction;
-import com.vcque.prompto.ultimate.contexts.SqlSchemaRetriever;
+import com.vcque.prompto.extensions.ultimate.contexts.SqlSchemaRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
 import com.vcque.prompto.outputs.SqlOutput;
