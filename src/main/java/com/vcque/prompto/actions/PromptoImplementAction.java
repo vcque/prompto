@@ -35,7 +35,7 @@ public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
                         PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
                 ))
                 .stopwords(List.of(PromptoResponse.EDITOR_STOPWORD))
-                .defaultInput("Go")
+                .defaultInput("Implement this method")
                 .output(new MethodOutput())
                 .execution(this::apply)
                 .build();
