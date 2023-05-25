@@ -6,4 +6,7 @@
             <category>Prompto</category>
         </intentionAction>
     </extensions>
+    <extensions defaultExtensionNs="com.vcque.prompto">
+        <promptoRetriever implementation="com.vcque.prompto.extensions.ultimate.contexts.SqlSchemaRetriever" />
+    </extensions>
 </idea-plugin>
