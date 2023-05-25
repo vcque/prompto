@@ -1,26 +1,39 @@
 package com.vcque.prompto.actions;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.vcque.prompto.contexts.*;
+import com.intellij.openapi.extensions.ExtensionPointName;
+import com.vcque.prompto.contexts.AvailableClassesRetriever;
+import com.vcque.prompto.contexts.EditorContentRetriever;
+import com.vcque.prompto.contexts.LanguageRetriever;
+import com.vcque.prompto.contexts.PromptoRetriever;
+import com.vcque.prompto.contexts.SelectionRetriever;
 import com.vcque.prompto.outputs.ShortAnswerOutput;
-import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
 import com.vcque.prompto.pipelines.PromptoPipeline;
+import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
 import com.vcque.prompto.ui.PromptoAnswerDialog;
 
-import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class PromptoAskAction extends PromptoAction<String> {
 
+    private static final ExtensionPointName<PromptoRetriever> EXTENSION_RETRIEVERS = new ExtensionPointName<>("com.vcque.prompto.promptoRetriever");
+
     @Override
     public PromptoPipeline<String> pipeline() {
+
         return PromptoPipeline.<String>builder()
                 .name("ask")
-                .retrievers(List.of(
-                        PromptoRetrieverDefinition.of(new EditorContentRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new LanguageRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
-                        PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
-                ))
+                .retrievers(
+                        Stream.concat(
+                                        Stream.of(
+                                                PromptoRetrieverDefinition.of(new EditorContentRetriever()),
+                                                PromptoRetrieverDefinition.ofOptional(new LanguageRetriever()),
+                                                PromptoRetrieverDefinition.ofOptional(new SelectionRetriever()),
+                                                PromptoRetrieverDefinition.ofOptional(new AvailableClassesRetriever())
+                                        ),
+                                        Arrays.stream(EXTENSION_RETRIEVERS.getExtensions()).map(PromptoRetrieverDefinition::ofOptional))
+                                .toList())
                 .defaultInput("What does this code do ?")
                 .output(new ShortAnswerOutput())
                 .execution((result, scope, contexts) -> {
