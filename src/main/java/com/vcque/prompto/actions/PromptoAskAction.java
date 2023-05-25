@@ -15,6 +15,9 @@ import com.vcque.prompto.ui.PromptoAnswerDialog;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+/**
+ * Contextual action for asking a question to the assistant and showing a markdown response.
+ */
 public class PromptoAskAction extends PromptoAction<String> {
 
     private static final ExtensionPointName<PromptoRetriever> EXTENSION_RETRIEVERS = new ExtensionPointName<>("com.vcque.prompto.promptoRetriever");

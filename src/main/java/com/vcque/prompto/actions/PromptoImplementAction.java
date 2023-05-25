@@ -21,6 +21,9 @@ import com.vcque.prompto.ui.PromptoAnswerDialog;
 
 import java.util.List;
 
+/**
+ * Contextual action for implementing or modifying a Java method.
+ */
 public class PromptoImplementAction extends PromptoAction<PromptoResponse> {
 
     @Override
