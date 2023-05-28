@@ -2,7 +2,6 @@ package com.vcque.prompto.contexts;
 
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiDocumentManager;
@@ -145,7 +144,7 @@ public class AvailableClassesRetriever implements PromptoRetriever {
                     .filter(Objects::nonNull)
                     .filter(PsiClass.class::isInstance)
                     .map(PsiClass.class::cast)
-                    .filter(this::isInSources)
+                    .filter(Utils::isInSources)
                     .toList();
         }
         return List.of();
@@ -202,17 +201,11 @@ public class AvailableClassesRetriever implements PromptoRetriever {
     private PsiClass retrieveSources(PsiType type) {
         if (type instanceof PsiClassType classType) {
             var psiClass = classType.resolve();
-            if (psiClass != null && isInSources(psiClass)) {
+            if (psiClass != null && Utils.isInSources(psiClass)) {
                 return psiClass;
             }
         }
         return null;
     }
 
-    private boolean isInSources(PsiClass psiClass) {
-        var containingFile = psiClass.getContainingFile();
-        var projectFileIndex = ProjectFileIndex.getInstance(psiClass.getProject());
-        var virtualFile = containingFile.getVirtualFile();
-        return projectFileIndex.isInSource(virtualFile);
-    }
 }

@@ -1,6 +1,6 @@
 package com.vcque.prompto;
 
-import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
@@ -167,4 +167,12 @@ public class Utils {
                 .replaceAll("\\s+\n", "\n") // remove trailing spaces
                 .replaceAll("\n{2,}", "\n"); // remove multi-newlines
     }
+
+    public static boolean isInSources(PsiElement element) {
+        var containingFile = element.getContainingFile();
+        var projectFileIndex = ProjectFileIndex.getInstance(element.getProject());
+        var virtualFile = containingFile.getVirtualFile();
+        return projectFileIndex.isInContent(virtualFile);
+    }
+
 }
