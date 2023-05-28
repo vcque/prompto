@@ -165,6 +165,7 @@ public class Utils {
     public static String cleanWhitespaces(String text) {
         return text
                 .replaceAll("\\s+\n", "\n") // remove trailing spaces
+                .replaceAll(" {4}", "\t") // Tabs take less tokens than spaces
                 .replaceAll("\n{2,}", "\n"); // remove multi-newlines
     }
 
