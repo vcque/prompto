@@ -32,6 +32,7 @@ public class PromptoContext {
     public enum Type {
         EDITOR("the user editor's content. Can be referred as `this file`"),
         CLASS("a source class of the project"),
+        TYPE("a type used in the project"),
         ERROR("an error in the project"),
         SELECTION("the current user's selection. Can be referred as `this`"),
         LANGUAGE("the user editor's language"),
