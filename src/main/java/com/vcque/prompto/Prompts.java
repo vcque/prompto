@@ -41,6 +41,22 @@ public class Prompts {
         );
     }
 
+    public static ChatMessage databaseQueryOutput(String userInput, String language) {
+        return new ChatMessage(
+                ChatMessageRole.USER.value(),
+                """
+                        Your task is to write a %s query based on these instructions: `%s`.
+                        Ensure that the query is optimized, well-structured, and adheres to best practices.
+                        Always have your query response between triple back quotes in the `%s` language.
+                        """.formatted(
+                                language,
+                                userInput,
+                                language
+                        )
+                        .trim()
+        );
+    }
+
     public static ChatMessage insertOutput() {
         return new ChatMessage(
                 ChatMessageRole.USER.value(),

@@ -8,7 +8,7 @@ import com.vcque.prompto.actions.PromptoAction;
 import com.vcque.prompto.extensions.ultimate.contexts.SqlSchemaRetriever;
 import com.vcque.prompto.contexts.EditorContentRetriever;
 import com.vcque.prompto.contexts.LanguageRetriever;
-import com.vcque.prompto.outputs.SqlOutput;
+import com.vcque.prompto.extensions.ultimate.outputs.SqlOutput;
 import com.vcque.prompto.pipelines.PromptoPipeline;
 import com.vcque.prompto.pipelines.PromptoRetrieverDefinition;
 
