@@ -63,7 +63,7 @@ public class PromptoManager {
                         LinkedHashMap::new
                 ));
 
-        var dialog = new PromptoQueryDialog(pipeline, contextsByRetrievers, maxToken);
+        var dialog = new PromptoQueryDialog(pipeline, contextsByRetrievers, maxToken, currentToken == null);
         dialog.show();
 
         var exitCode = dialog.getExitCode();

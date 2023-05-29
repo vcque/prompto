@@ -39,8 +39,9 @@ public class PromptoQueryDialog extends DialogWrapper {
     public static final int CLIPBOARD_EXIT_CODE = 2;
 
     private final int maxTokens;
+    private final boolean noApiKey;
 
-    public PromptoQueryDialog(PromptoPipeline<?> pipeline, LinkedHashMap<PromptoRetrieverDefinition, List<PromptoContext>> contextsByRetrievers, int maxTokens) {
+    public PromptoQueryDialog(PromptoPipeline<?> pipeline, LinkedHashMap<PromptoRetrieverDefinition, List<PromptoContext>> contextsByRetrievers, int maxTokens, boolean noApiKey) {
         super(true);
         this.maxTokens = maxTokens;
         this.contextTree = buildCheckedTree(maxTokens, contextsByRetrievers);
@@ -54,6 +55,10 @@ public class PromptoQueryDialog extends DialogWrapper {
                 updateTokens();
             }
         });
+        this.noApiKey = noApiKey;
+        if (noApiKey) {
+            getOKAction().setEnabled(false);
+        }
         updateTokens();
 
         init();
@@ -183,6 +188,12 @@ public class PromptoQueryDialog extends DialogWrapper {
         gc.setColumn(1);
         gc.setHSizePolicy(GridConstraints.SIZEPOLICY_FIXED);
         panel.add(buttonsPanel, gc);
+
+        if (noApiKey) {
+            okButton.setToolTipText("Add an OpenAI API key in Prompto Settings to enable this feature");
+            getRootPane().setDefaultButton(clipboardButton);
+        }
+
         return panel;
     }
 
