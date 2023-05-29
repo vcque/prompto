@@ -9,7 +9,7 @@
       <p>
         The core concept of Prompto is to capture your IDE state in order to contextualize queries you send to ChatGPT. <br>
         This allows the generated responses to be fine-tuned to your use-case, building on the code present in your project. <br>
-        Prompto has been mainly used and tested on Java projects but can also work on other languages in a limited way.
+        Prompto has been mainly used and tested on Java and Typescript projects but can also work on other languages in a limited way.
       </p>
       <br>
       <p>
@@ -35,7 +35,8 @@
       <h2>Prompto ask</h2>
       <p>
         Use this action to ask a quick question about your project. <br>
-        You can also ask Prompto how it's going, I guess it's a feature ¯\_(ツ)_/¯
+        This can be useful to get a answer that you know will be short and mostly accurate.
+        If you have doubts, it is better to export it to clipboard and start a chat with the LLM of your choice instead.
       </p>
       <h2>Prompto sql - Intellij Ultimate only</h2>
       <p>
@@ -48,20 +49,19 @@
     ]]></description>
 
     <change-notes><![CDATA[
-        <h1>0.8.0</h1>
+        <h1>0.9.0</h1>
         <h2>New Features</h2>
         <ul>
-          <li>Add IDE errors as available prompto contexts</li>
-          <li>Better overall prompto query popup</li>
-          <li>Add labels to context retriever previews</li>
-          <li>Prompto icon gets a white background</li>
-          <li>Add an editor stopword to implement and sql actions so that the response is handled faster</li>
-          <li>User input and context values can be contributed to the output formatting prompt</li>
+          <li>Typescript support: allow `Prompto implement` on TS functions</li>
+          <li>Typescript support: add TS type definition to prompto scope</li>
+          <li>UI: set clipboard as default quick action when the API key is not set</li>
+          <li>Use tabs instead of spaces to save token usage</li>
+          <li>Sql database schema is available to Prompto ask</li>
+          <li>Allow the plugin to be extended to add more type of data to the prompt scope</li>
         </ul>
         <h2>Bug Fixes</h2>
         <ul>
-          <li>Contexts keeps their retrieval order for priorisation purpose</li>
-          <li>Fix gradle config which was not allowing compatible intellij versions</li>
+          <li>Small prompt enhancements</li>
         </ul>
     ]]></change-notes>
 
