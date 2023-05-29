@@ -63,7 +63,8 @@ public class PromptoManager {
                         LinkedHashMap::new
                 ));
 
-        var dialog = new PromptoQueryDialog(pipeline, contextsByRetrievers, maxToken, currentToken == null);
+        var noApiKey = PromptoSettingsState.getInstance().apiToken == null || PromptoSettingsState.getInstance().apiToken.isBlank();
+        var dialog = new PromptoQueryDialog(pipeline, contextsByRetrievers, maxToken, noApiKey);
         dialog.show();
 
         var exitCode = dialog.getExitCode();
