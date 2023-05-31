@@ -68,7 +68,7 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
     <depends>org.intellij.plugins.markdown</depends>
-    <depends optional="true" config-file="ultimate.xml">com.intellij.database</depends>
+    <depends optional="true" config-file="META-INF/prompto-withUltimate.xml">com.intellij.database</depends>
     <extensionPoints>
         <extensionPoint name="promptoRetriever" interface="com.vcque.prompto.contexts.PromptoRetriever"/>
     </extensionPoints>
