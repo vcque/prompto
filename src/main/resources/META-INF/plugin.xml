@@ -49,19 +49,16 @@
     ]]></description>
 
     <change-notes><![CDATA[
-        <h1>0.9.0</h1>
+        <h1>0.10.0</h1>
         <h2>New Features</h2>
         <ul>
-          <li>Typescript support: allow `Prompto implement` on TS functions</li>
-          <li>Typescript support: add TS type definition to prompto scope</li>
-          <li>UI: set clipboard as default quick action when the API key is not set</li>
-          <li>Use tabs instead of spaces to save token usage</li>
-          <li>Sql database schema is available to Prompto ask</li>
-          <li>Allow the plugin to be extended to add more type of data to the prompt scope</li>
+          <li>MongoDB support: add the `prompto mongo` action for generating Mongo queries</li>
+          <li>MongoDB support: add MongoDB schema to `prompto ask` scope</li>
+          <li>DB: prompt optimization for DBTools actions</li>
         </ul>
         <h2>Bug Fixes</h2>
         <ul>
-          <li>Small prompt enhancements</li>
+          <li>Fixes a conflict with intellij base plugins</li>
         </ul>
     ]]></change-notes>
 
