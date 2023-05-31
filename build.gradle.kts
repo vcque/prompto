@@ -23,8 +23,8 @@ intellij {
             "com.intellij.java",
             "JavaScript",
             "com.intellij.database",
-            "markdown",
-            ))
+            "org.intellij.plugins.markdown",
+    ))
 }
 
 dependencies {
@@ -46,10 +46,10 @@ tasks {
     }
 
     runPluginVerifier {
-      ideVersions.set(listOf(
-              "IIC-2022.2",
-              "IIU-2022.2"
-      ))
+        ideVersions.set(listOf(
+                "IIC-2022.2",
+                "IIU-2022.2"
+        ))
     }
 
     patchPluginXml {

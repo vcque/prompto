@@ -2,22 +2,15 @@
     <extensions defaultExtensionNs="com.intellij">
         <intentionAction>
             <className>com.vcque.prompto.extensions.ultimate.actions.PromptoSqlAction</className>
-            <language>SQL</language>
             <category>Prompto</category>
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.extensions.ultimate.actions.PromptoMongoAction</className>
             <category>Prompto</category>
         </intentionAction>
-        <intentionAction>
-            <className>com.vcque.prompto.extensions.ultimate.actions.TSImplementAction</className>
-            <language>TypeScript</language>
-            <category>Prompto</category>
-        </intentionAction>
     </extensions>
     <extensions defaultExtensionNs="com.vcque.prompto">
         <promptoRetriever implementation="com.vcque.prompto.extensions.ultimate.contexts.SqlSchemaRetriever" />
         <promptoRetriever implementation="com.vcque.prompto.extensions.ultimate.contexts.MongoDbSchemaRetriever" />
-        <promptoRetriever implementation="com.vcque.prompto.extensions.ultimate.contexts.TSTypesRetriever" />
     </extensions>
 </idea-plugin>

@@ -68,7 +68,8 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
     <depends>org.intellij.plugins.markdown</depends>
-    <depends optional="true" config-file="META-INF/prompto-withUltimate.xml">com.intellij.database</depends>
+    <depends optional="true" config-file="prompto-withDatabase.xml">com.intellij.database</depends>
+    <depends optional="true" config-file="prompto-withJavascript.xml">JavaScript</depends>
     <extensionPoints>
         <extensionPoint name="promptoRetriever" interface="com.vcque.prompto.contexts.PromptoRetriever"/>
     </extensionPoints>
@@ -83,7 +84,6 @@
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoImplementAction</className>
             <category>Prompto</category>
-            <language>JAVA</language>
         </intentionAction>
         <intentionAction>
             <className>com.vcque.prompto.actions.PromptoAskAction</className>

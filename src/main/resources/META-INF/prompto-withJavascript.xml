@@ -1,0 +1,11 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <intentionAction>
+            <className>com.vcque.prompto.extensions.ultimate.actions.TSImplementAction</className>
+            <category>Prompto</category>
+        </intentionAction>
+    </extensions>
+    <extensions defaultExtensionNs="com.vcque.prompto">
+        <promptoRetriever implementation="com.vcque.prompto.extensions.ultimate.contexts.TSTypesRetriever" />
+    </extensions>
+</idea-plugin>
